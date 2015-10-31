@@ -3,12 +3,17 @@
  */
 package de.terrestris.shogun2.model.module;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToOne;
+import javax.persistence.OrderColumn;
 import javax.persistence.Table;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -40,13 +45,18 @@ public class MapModule extends PersistentObject {
 
 	private String name;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne
+	// t.b.d: can mapConfig belong to several maps / overview maps
 	private MapConfig mapConfig;
 
 	@OneToOne(cascade = CascadeType.ALL)
 	private OverviewMapModule overViewMap;
 
-	private Set<Layer> mapLayers = new HashSet<Layer>();
+	@ElementCollection(fetch = FetchType.EAGER)
+	@JoinTable(name = "MAP_LAYERS", joinColumns = { @JoinColumn(name = "MAP_ID") }, inverseJoinColumns = {
+			@JoinColumn(name = "LAYER_ID") })
+	@OrderColumn(name = "INDEX")
+	private List<Layer> mapLayers = new ArrayList<Layer>();
 
 	/**
 	 * default constructor
@@ -61,7 +71,7 @@ public class MapModule extends PersistentObject {
 	 * @param mapConfig
 	 * @param mapLayers
 	 */
-	public MapModule(String name, MapConfig mapConfig, Set<Layer> mapLayers) {
+	public MapModule(String name, MapConfig mapConfig, List<Layer> mapLayers) {
 		super();
 		this.name = name;
 		this.mapConfig = mapConfig;
@@ -99,14 +109,14 @@ public class MapModule extends PersistentObject {
 	/**
 	 * @return the mapLayers
 	 */
-	public Set<Layer> getMapLayers() {
+	public List<Layer> getMapLayers() {
 		return mapLayers;
 	}
 
 	/**
 	 * @param mapLayers the mapLayers to set
 	 */
-	public void setMapLayers(Set<Layer> mapLayers) {
+	public void setMapLayers(List<Layer> mapLayers) {
 		this.mapLayers = mapLayers;
 	}
 

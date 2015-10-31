@@ -16,7 +16,8 @@ import de.terrestris.shogun2.model.map.MapConfig;
 
 /**
  *
- * Class representing .......
+ * Class representing ......
+ * TODO
  * An GeoExt.component.OverviewMap displays an overview map of an parent map.
  * You can use this component as any other Ext.Component, e.g give it as an item
  * to a panel.
