@@ -20,6 +20,8 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import de.terrestris.shogun2.model.layer.Layer;
+
 /**
  * A module to search features of a WFS.
  *
@@ -35,14 +37,14 @@ public class WfsSearch extends Module {
 	 */
 	private static final long serialVersionUID = 1L;
 
-//	/**
-//	 * A list of EPSG-Codes the should be available in the module.
-//	 */
-//	@ElementCollection(fetch = FetchType.EAGER)
-//	@CollectionTable(name = "WfsSearch_Layers", joinColumns = @JoinColumn(name = "WfsSearch_ID") )
-//	@Column(name = "Layer")
-//	@OrderColumn(name = "INDEX")
-//	private List<Layer> layers = new ArrayList<Layer>();
+	/**
+	 * A list of EPSG-Codes the should be available in the module.
+	 */
+	@ElementCollection(fetch = FetchType.EAGER)
+	@CollectionTable(name = "WFSSEARCH_LAYERS", joinColumns = @JoinColumn(name = "WFSSEARCH_ID") )
+	@Column(name = "LAYER")
+	@OrderColumn(name = "INDEX")
+	private List<Layer> layers = new ArrayList<Layer>();
 
 	private String wfsServerUrl;
 
