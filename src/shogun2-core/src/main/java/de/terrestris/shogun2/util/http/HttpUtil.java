@@ -48,10 +48,13 @@ import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 import de.terrestris.shogun2.util.model.Response;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  *
@@ -1926,6 +1929,59 @@ public class HttpUtil {
 	}
 
 	/**
+	 * @param request
+	 * @return
+	 */
+	public static boolean isSaneRequest(HttpServletRequest request) {
+		if (request.getMethod() != null) {
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * @param request
+	 * @return
+	 */
+	public static boolean isHttpGetRequest(HttpServletRequest request) {
+		boolean isSane = isSaneRequest(request);
+		boolean isGet = isSane && request.getMethod().equals(HttpMethod.GET.toString());
+		return isSane && isGet;
+	}
+
+	/**
+	 * @param request
+	 * @return
+	 */
+	public static boolean isHttpPostRequest(HttpServletRequest request) {
+		boolean isSane = isSaneRequest(request);
+		boolean isPost = isSane && request.getMethod().equals(HttpMethod.POST.toString());
+		return isSane && isPost;
+	}
+
+	/**
+	 *
+	 * @param request
+	 * @return
+	 */
+	public static boolean isFormMultipartPost(HttpServletRequest request) {
+		if (!isHttpPostRequest(request)) {
+			return false;
+		}
+
+		String contentType = request.getContentType();
+		if (contentType == null) {
+			return false;
+		}
+
+		if (contentType.toLowerCase().startsWith("multipart/form-data")) {
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
 	 * If the JVM knows about a HTTP proxy, e.g. by specifying
 	 *
 	 * <pre>
@@ -1936,7 +1992,7 @@ public class HttpUtil {
 	 * an InetSocketAddress ready to be used to pass the proxy to the
 	 * DefaultHttpClient.
 	 *
-	 * @param url
+	 * @param uri
 	 * @return
 	 * @throws UnknownHostException
 	 */

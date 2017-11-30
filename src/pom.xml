@@ -197,6 +197,9 @@
         <!-- Apache HTTP Client -->
         <apache-httpclient.version>4.5.3</apache-httpclient.version>
 
+        <!-- HTTP proxy -->
+        <httpproxy.version>1.10</httpproxy.version>
+
         <!-- GeoTools -->
         <geotools.version>17.3</geotools.version>
 
@@ -775,6 +778,12 @@
                 <groupId>org.apache.httpcomponents</groupId>
                 <artifactId>httpmime</artifactId>
                 <version>${apache-httpclient.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mitre.dsmiley.httpproxy</groupId>
+                <artifactId>smiley-http-proxy-servlet</artifactId>
+                <version>${httpproxy.version}</version>
             </dependency>
 
             <dependency>
