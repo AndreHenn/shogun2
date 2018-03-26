@@ -54,14 +54,15 @@ public class TileWmsLayerDataSource extends ImageWmsLayerDataSource {
     }
 
     /**
+     *
      * @param name
      * @param type
      * @param url
      * @param width
      * @param height
      * @param version
-     * @param layers
-     * @param styles
+     * @param layerNames
+     * @param layerStyles
      * @param tileGrid
      */
     public TileWmsLayerDataSource(String name, String type, String url, int width,

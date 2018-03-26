@@ -101,7 +101,7 @@ public class LayerAppearance extends PersistentObject {
     }
 
     /**
-     * @param type
+     *
      * @param attribution
      * @param name
      * @param maxResolution

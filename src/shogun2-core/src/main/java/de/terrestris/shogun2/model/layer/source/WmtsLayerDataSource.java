@@ -4,6 +4,7 @@ import javax.persistence.Cacheable;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import de.terrestris.shogun2.model.layer.util.TileGrid;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.hibernate.annotations.Cache;
@@ -25,6 +26,13 @@ public class WmtsLayerDataSource extends LayerDataSource {
      *
      */
     private static final long serialVersionUID = 1L;
+
+    private int cacheSize;
+    private String crossOrigin;
+    private TileGrid tileGrid;
+    private String projection;
+    private String layer;
+    private String style;
 
     /**
      *
