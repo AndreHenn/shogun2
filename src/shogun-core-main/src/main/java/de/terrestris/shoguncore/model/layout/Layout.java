@@ -6,22 +6,8 @@ package de.terrestris.shoguncore.model.layout;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.Cacheable;
-import javax.persistence.CollectionTable;
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.JoinColumn;
-import javax.persistence.Table;
-
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import de.terrestris.shoguncore.model.PersistentObject;
 import de.terrestris.shoguncore.model.module.CompositeModule;
@@ -38,11 +24,6 @@ import de.terrestris.shoguncore.model.module.Module;
  *
  * @author Nils Bühner
  */
-@Entity
-@Table
-@Inheritance(strategy = InheritanceType.JOINED)
-@Cacheable
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Layout extends PersistentObject {
 
     /**
@@ -59,22 +40,12 @@ public class Layout extends PersistentObject {
      * A set of property names that are <b>recommended</b> for the use in the
      * related child modules. {@link CompositeModule#getSubModules()}.
      */
-    @ElementCollection
-    @CollectionTable(joinColumns = @JoinColumn(name = "LAYOUT_ID"))
-    @Column(name = "PROPERTYNAME")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @Fetch(FetchMode.JOIN)
     private Set<String> propertyHints = new HashSet<String>();
 
     /**
      * A set of property names that are <b>required</b> for the use in the
      * related child modules. {@link CompositeModule#getSubModules()}.
      */
-    @ElementCollection
-    @CollectionTable(joinColumns = @JoinColumn(name = "LAYOUT_ID"))
-    @Column(name = "PROPERTYNAME")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @Fetch(FetchMode.JOIN)
     private Set<String> propertyMusts = new HashSet<String>();
 
     /**

@@ -1,7 +1,5 @@
 package de.terrestris.shoguncore.service;
 
-import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.Restrictions;
 import org.joda.time.DateTime;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,11 +35,12 @@ public abstract class AbstractTokenService<E extends Token, D extends AbstractTo
     @Transactional(readOnly = true)
     public E findByTokenValue(String token) {
 
+        /*
         Criterion criteria = Restrictions.eq("token", token);
 
         E userToken = dao.findByUniqueCriteria(criteria);
-
-        return userToken;
+    */
+        return null;
     }
 
     /**

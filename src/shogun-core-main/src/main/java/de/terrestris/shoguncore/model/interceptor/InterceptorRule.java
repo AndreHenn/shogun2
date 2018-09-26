@@ -1,17 +1,8 @@
 package de.terrestris.shoguncore.model.interceptor;
 
-import javax.persistence.Cacheable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Table;
-
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import de.terrestris.shoguncore.model.PersistentObject;
 import de.terrestris.shoguncore.util.enumeration.HttpEnum;
@@ -35,10 +26,6 @@ import de.terrestris.shoguncore.util.enumeration.OgcEnum;
  * @author Kai Volland
  * @author terrestris GmbH & Co. KG
  */
-@Entity
-@Table
-@Cacheable
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class InterceptorRule extends PersistentObject {
 
     /**
@@ -51,8 +38,6 @@ public class InterceptorRule extends PersistentObject {
      * * REQUEST
      * * RESPONSE
      */
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
     private HttpEnum.EventType event;
 
     /**
@@ -61,8 +46,6 @@ public class InterceptorRule extends PersistentObject {
      * * DENY
      * * MODIFY
      */
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
     private InterceptorEnum.RuleType rule;
 
     /**
@@ -71,14 +54,11 @@ public class InterceptorRule extends PersistentObject {
      * * WFS
      * * WCS
      */
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
     private OgcEnum.ServiceType service;
 
     /**
      * The OGC operation type, e.g. GetMap.
      */
-    @Enumerated(EnumType.STRING)
     private OgcEnum.OperationType operation;
 
     /**

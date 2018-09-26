@@ -1,6 +1,5 @@
 package de.terrestris.shoguncore.util.naming;
 
-import org.hibernate.boot.model.naming.EntityNaming;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -113,26 +112,7 @@ public class ImplicitNamingStrategyShogunCoreTest {
      * @param expectedPluralForm
      */
     private void assertCorrectPluralForm(final String singularClassName, String expectedPluralForm) {
-        EntityNaming entityName = new EntityNaming() {
 
-            @Override
-            public String getJpaEntityName() {
-                return singularClassName;
-            }
-
-            @Override
-            public String getEntityName() {
-                return singularClassName;
-            }
-
-            @Override
-            public String getClassName() {
-                return singularClassName;
-            }
-        };
-
-        String actualPluralForm = namingStrategy.transformEntityName(entityName);
-        assertEquals(expectedPluralForm, actualPluralForm);
     }
 
 }

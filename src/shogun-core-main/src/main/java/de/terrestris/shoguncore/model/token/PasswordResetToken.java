@@ -1,9 +1,5 @@
 package de.terrestris.shoguncore.model.token;
 
-import javax.persistence.Cacheable;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
 import de.terrestris.shoguncore.model.User;
 
 /**
@@ -13,9 +9,6 @@ import de.terrestris.shoguncore.model.User;
  * @author Daniel Koch
  * @author Nils Bühner
  */
-@Entity
-@Table
-@Cacheable
 public class PasswordResetToken extends UserToken {
 
     /**

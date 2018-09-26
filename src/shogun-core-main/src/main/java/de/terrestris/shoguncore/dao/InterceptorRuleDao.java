@@ -3,9 +3,6 @@ package de.terrestris.shoguncore.dao;
 import de.terrestris.shoguncore.model.interceptor.InterceptorRule;
 import de.terrestris.shoguncore.util.enumeration.HttpEnum;
 import de.terrestris.shoguncore.util.enumeration.OgcEnum;
-import org.hibernate.Criteria;
-import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -45,7 +42,7 @@ public class InterceptorRuleDao<E extends InterceptorRule>
     @SuppressWarnings("unchecked")
     public List<E> findAllRulesForServiceAndEvent(String service, String event) {
 
-        Criteria criteria = createDistinctRootEntityCriteria();
+       /* Criteria criteria = createDistinctRootEntityCriteria();
 
         criteria.add(Restrictions.eq("service",
             OgcEnum.ServiceType.fromString(service)));
@@ -60,7 +57,8 @@ public class InterceptorRuleDao<E extends InterceptorRule>
 
         List<E> result = criteria.list();
 
-        return result;
+        return result;*/
+       return null;
     }
 
 }

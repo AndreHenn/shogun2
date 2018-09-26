@@ -2,12 +2,6 @@ package de.terrestris.shoguncore.model.layer.util;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.Table;
 import java.util.List;
 
 /**
@@ -15,13 +9,9 @@ import java.util.List;
  *
  * @author Andre Henn
  */
-@Entity
-@Table
 public class WmtsTileGrid extends TileGrid {
 
     // String list holding the matrix IDs.
-    @ElementCollection(targetClass = String.class)
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private List<String> matrixIds;
 
     /**

@@ -15,16 +15,6 @@ public class PasswordResetTokenServiceTest extends
         return new PasswordResetTokenService<PasswordResetToken, PasswordResetTokenDao<PasswordResetToken>>();
     }
 
-    @Override
-    protected PasswordResetToken getExpiredUserToken() {
-        return new PasswordResetToken(new User(), -1);
-    }
-
-    @Override
-    protected PasswordResetToken getUserTokenWithoutUser() {
-        return new PasswordResetToken(null);
-    }
-
     @SuppressWarnings("unchecked")
     @Override
     protected Class<PasswordResetTokenDao<PasswordResetToken>> getDaoClass() {

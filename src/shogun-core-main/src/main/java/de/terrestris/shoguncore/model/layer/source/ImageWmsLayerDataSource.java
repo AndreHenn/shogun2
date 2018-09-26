@@ -3,10 +3,8 @@ package de.terrestris.shoguncore.model.layer.source;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-import javax.persistence.Cacheable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 /**
  * Class representing a layer data source for WMS servers providing single,
@@ -14,9 +12,6 @@ import javax.persistence.Table;
  *
  * @author Andre Henn
  */
-@Entity
-@Table
-@Cacheable
 public class ImageWmsLayerDataSource extends LayerDataSource {
 
     /**
@@ -30,13 +25,11 @@ public class ImageWmsLayerDataSource extends LayerDataSource {
     /**
      *
      */
-    @Column(length = 2048)
     private String layerNames;
 
     /**
      *
      */
-    @Column(length = 2048)
     private String layerStyles;
 
     @Column

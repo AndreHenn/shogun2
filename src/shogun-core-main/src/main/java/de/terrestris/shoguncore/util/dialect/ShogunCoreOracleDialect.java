@@ -1,7 +1,5 @@
 package de.terrestris.shoguncore.util.dialect;
 
-import org.hibernate.dialect.Oracle12cDialect;
-import org.hibernate.dialect.Dialect;
 
 import java.sql.Types;
 
@@ -13,7 +11,7 @@ import java.sql.Types;
  * @author Andre Henn
  * @author terrestris GmbH & co. KG
  */
-public class ShogunCoreOracleDialect extends Oracle12cDialect {
+public class Shogun2OracleDialect {
 
     /**
      *
@@ -24,8 +22,7 @@ public class ShogunCoreOracleDialect extends Oracle12cDialect {
 
     /**
      *
-     */
-    @Override
+
     protected void registerLargeObjectTypeMappings() {
         super.registerLargeObjectTypeMappings();
 
@@ -33,4 +30,5 @@ public class ShogunCoreOracleDialect extends Oracle12cDialect {
         registerColumnType(Types.LONGVARCHAR, "clob");
         registerColumnType(Types.LONGVARBINARY, "long raw");
     }
+     */
 }

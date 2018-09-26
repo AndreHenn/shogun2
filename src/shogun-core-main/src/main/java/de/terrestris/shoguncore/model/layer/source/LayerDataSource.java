@@ -1,14 +1,7 @@
 package de.terrestris.shoguncore.model.layer.source;
 
-import javax.persistence.Cacheable;
-import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import de.terrestris.shoguncore.model.PersistentObject;
 
@@ -18,10 +11,6 @@ import de.terrestris.shoguncore.model.PersistentObject;
  * @author Andre Henn
  * @author terrestris GmbH & Co. KG
  */
-@Entity
-@Inheritance(strategy = InheritanceType.JOINED)
-@Cacheable
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public abstract class LayerDataSource extends PersistentObject {
 
     /**

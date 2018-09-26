@@ -1,8 +1,6 @@
 package de.terrestris.shoguncore.util.naming;
 
 import org.apache.commons.lang3.StringUtils;
-import org.hibernate.boot.model.naming.Identifier;
-import org.hibernate.engine.jdbc.env.spi.JdbcEnvironment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
@@ -35,7 +33,7 @@ public class OracleNamingStrategyShogunCore extends PhysicalNamingStrategyShogun
      * @param name    identifier to check
      * @param context JDBC env
      * @return Identifier
-     */
+
     @Override
     public Identifier toPhysicalColumnName(Identifier name, JdbcEnvironment context) {
         // call superclass and get string value
@@ -47,6 +45,7 @@ public class OracleNamingStrategyShogunCore extends PhysicalNamingStrategyShogun
 
         return columnIdentifier;
     }
+     */
 
     /**
      * Set the column name prefix

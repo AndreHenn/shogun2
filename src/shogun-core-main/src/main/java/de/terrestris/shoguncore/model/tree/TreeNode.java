@@ -1,20 +1,11 @@
-/**
- *
- */
 package de.terrestris.shoguncore.model.tree;
 
 import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import de.terrestris.shoguncore.converter.TreeFolderIdResolver;
-import de.terrestris.shoguncore.model.PersistentObject;
+import de.terrestris.shogun2.converter.TreeFolderIdResolver;
+import de.terrestris.shogun2.model.PersistentObject;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-
-import javax.persistence.*;
 
 /**
  * A class representing a node in a tree. This class can be used for leaf nodes.
@@ -25,13 +16,8 @@ import javax.persistence.*;
  * @author Kai Volland
  * @author terrestris GmbH & Co. KG
  */
-@Entity
-@Table
-@Inheritance(strategy = InheritanceType.JOINED)
 @JsonInclude(Include.NON_NULL)
 @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "@class")
-@Cacheable
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class TreeNode extends PersistentObject {
 
     /**
@@ -47,8 +33,6 @@ public class TreeNode extends PersistentObject {
     /**
      * This is the owning side of the relation between parent/child!
      */
-    @ManyToOne
-    @JoinColumn(name = "PARENTFOLDER_ID")
     @JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "id",
@@ -56,8 +40,6 @@ public class TreeNode extends PersistentObject {
     )
     @JsonIdentityReference(alwaysAsId = true)
     @JsonProperty("parentId")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @Fetch(FetchMode.JOIN)
     private TreeFolder parentFolder;
 
     /**

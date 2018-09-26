@@ -345,7 +345,7 @@ public class PermissionAwareCrudService<E extends PersistentObject, D extends Ge
     @PreAuthorize("hasRole(@configHolder.getSuperAdminRoleName()) or hasPermission(#user, 'READ')")
     @Transactional(readOnly = true)
     public Map<PersistentObject, PermissionCollection> findAllUserPermissionsOfUser(User user) {
-        return dao.findAllUserPermissionsOfUser(user);
+        return null;//dao.findAllUserPermissionsOfUser(user);
     }
 
     /**
@@ -361,7 +361,7 @@ public class PermissionAwareCrudService<E extends PersistentObject, D extends Ge
     @PreAuthorize("hasRole(@configHolder.getSuperAdminRoleName()) or hasPermission(#userGroup, 'READ')")
     @Transactional(readOnly = true)
     public Map<PersistentObject, PermissionCollection> findAllUserGroupPermissionsOfUserGroup(UserGroup userGroup) {
-        return dao.findAllUserGroupPermissionsOfUserGroup(userGroup);
+        return null;//;dao.findAllUserGroupPermissionsOfUserGroup(userGroup);
     }
 
     /**

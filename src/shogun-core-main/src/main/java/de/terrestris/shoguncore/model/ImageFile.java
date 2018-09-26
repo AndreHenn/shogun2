@@ -3,11 +3,6 @@
  */
 package de.terrestris.shoguncore.model;
 
-import javax.persistence.Cacheable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -19,9 +14,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @author Johannes Weskamm
  * @author Daniel Koch
  */
-@Entity
-@Table
-@Cacheable
 public class ImageFile extends File {
 
     /**
@@ -33,7 +25,6 @@ public class ImageFile extends File {
      *
      */
     @JsonIgnore
-    @Column(length = Integer.MAX_VALUE)
     private byte[] thumbnail;
 
     /**

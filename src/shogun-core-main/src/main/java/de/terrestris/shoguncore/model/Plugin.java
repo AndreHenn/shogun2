@@ -1,12 +1,12 @@
 package de.terrestris.shoguncore.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.HashSet;
+import java.util.Set;
+
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.*;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
@@ -17,11 +17,6 @@ import java.util.Set;
 /**
  *
  */
-@Entity
-@Table
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-@Cacheable
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Plugin extends PersistentObject {
 
     /**
@@ -37,25 +32,21 @@ public class Plugin extends PersistentObject {
     /**
      * the class name of the plugin
      **/
-    @Column(unique = true, nullable = false)
     private String className;
 
     /**
      * the xtype of the plugin
      **/
-    @Column(unique = true)
     private String xtype;
 
     /**
      * the JavaScript (JS) code of the plugin
      **/
-    @Type(type = "text")
     private String sourceCode;
 
     /**
      * the Cascading Style Sheets (CSS) of the plugin
      **/
-    @Type(type = "text")
     private String styleSheet;
 
     /**
@@ -68,13 +59,6 @@ public class Plugin extends PersistentObject {
     /**
      * A list of assigned {@link File}s.
      */
-    @ManyToMany
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @Fetch(FetchMode.JOIN)
-    @JoinTable(
-        joinColumns = {@JoinColumn(name = "PLUGIN_ID")},
-        inverseJoinColumns = {@JoinColumn(name = "FILE_ID")}
-    )
     @JsonIgnore
     private Set<File> fileUploads = new HashSet<File>();
 
@@ -101,7 +85,6 @@ public class Plugin extends PersistentObject {
     /**
      * @return the className
      */
-    @Column(unique = true, nullable = false)
     public String getClassName() {
         return className;
     }

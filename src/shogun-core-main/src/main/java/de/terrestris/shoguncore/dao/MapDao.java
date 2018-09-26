@@ -4,7 +4,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.hibernate.HibernateException;
 import org.springframework.stereotype.Repository;
 
 import de.terrestris.shoguncore.model.layer.Layer;
@@ -34,9 +33,9 @@ public class MapDao<E extends Map> extends
     /**
      *
      */
-    public Set<E> findMapsWithLayer(Layer layer) throws HibernateException {
-        final List<E> resultList = this.findAllWithCollectionContaining("mapLayers", layer);
-        return new HashSet<>(resultList);
+    public Set<E> findMapsWithLayer(Layer layer) {
+        //final List<E> resultList = this.findAllWithCollectionContaining("mapLayers", layer);
+        return new HashSet<>();
     }
 
 }

@@ -1,17 +1,12 @@
-/**
- *
- */
 package de.terrestris.shoguncore.model.module;
 
-import de.terrestris.shoguncore.model.layer.Layer;
-import de.terrestris.shoguncore.model.map.MapConfig;
-import de.terrestris.shoguncore.model.map.MapControl;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -27,9 +22,6 @@ import java.util.Set;
  * @author Daniel Koch
  * @author terrestris GmbH & Co. KG
  */
-@Entity
-@Table
-@Cacheable
 public class Map extends Module {
 
     /**
@@ -41,32 +33,16 @@ public class Map extends Module {
      * The MapConfig used by this Map. A MapConfig can be used by several maps
      * or overview maps.
      */
-    @ManyToOne
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @Fetch(FetchMode.JOIN)
     private MapConfig mapConfig;
 
     /**
      * The controls used within this Map.
      */
-    @ManyToMany
-    @JoinTable(
-        joinColumns = {@JoinColumn(name = "MAP_ID")},
-        inverseJoinColumns = {@JoinColumn(name = "CONTROL_ID")}
-    )
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private Set<MapControl> mapControls = new HashSet<MapControl>();
 
     /**
      * The layers used within this Map.
      */
-    @ManyToMany
-    @JoinTable(
-        joinColumns = {@JoinColumn(name = "MAP_ID")},
-        inverseJoinColumns = {@JoinColumn(name = "LAYER_ID")}
-    )
-    @OrderColumn(name = "IDX")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private List<Layer> mapLayers = new ArrayList<Layer>();
 
     /**

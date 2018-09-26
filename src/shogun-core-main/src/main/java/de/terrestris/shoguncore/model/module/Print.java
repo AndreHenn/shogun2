@@ -3,9 +3,6 @@
  */
 package de.terrestris.shoguncore.model.module;
 
-import javax.persistence.Cacheable;
-import javax.persistence.Entity;
-import javax.persistence.Table;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -15,9 +12,6 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
  *
  * @author Kai Volland
  */
-@Entity
-@Table
-@Cacheable
 public class Print extends Module {
 
     /**

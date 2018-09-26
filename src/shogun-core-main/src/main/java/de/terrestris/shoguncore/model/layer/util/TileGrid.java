@@ -6,16 +6,8 @@ package de.terrestris.shoguncore.model.layer.util;
 import java.awt.geom.Point2D;
 import java.util.List;
 
-import javax.persistence.*;
-
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import de.terrestris.shoguncore.model.PersistentObject;
 
@@ -25,11 +17,6 @@ import de.terrestris.shoguncore.model.PersistentObject;
  * @author Andre Henn
  * @author terrestris GmbH & Co. KG
  */
-@Entity
-@Table
-@Cacheable
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-@Inheritance(strategy = InheritanceType.JOINED)
 public class TileGrid extends PersistentObject {
 
     /**
@@ -47,11 +34,6 @@ public class TileGrid extends PersistentObject {
      * Tile coordinates increase left to right and upwards.
      * If not specified, extent or origins must be provided.
      */
-    @Embedded
-    @AttributeOverrides({
-        @AttributeOverride(name = "x", column = @Column(name = "TILEGRIDORIGIN_X")),
-        @AttributeOverride(name = "y", column = @Column(name = "TILEGRIDORIGIN_Y"))
-    })
     private Point2D.Double tileGridOrigin;
 
     /**
@@ -59,10 +41,6 @@ public class TileGrid extends PersistentObject {
      * by ol.source.Tile sources. When no origin or origins are configured,
      * the origin will be set to the top-left corner of the extent.
      */
-    @ManyToOne
-    @Cascade(CascadeType.SAVE_UPDATE)
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @Fetch(FetchMode.JOIN)
     private Extent tileGridExtent;
 
     /**
@@ -73,14 +51,6 @@ public class TileGrid extends PersistentObject {
     /**
      * The tileGrid resolutions.
      */
-    @ElementCollection
-    @CollectionTable(
-        name = "TILEGRID_RESOLUTION",
-        joinColumns = @JoinColumn(name = "TILEGRID_ID"))
-    @Column(name = "RESOLUTION")
-    @OrderColumn(name = "IDX")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @Fetch(FetchMode.JOIN)
     private List<Double> tileGridResolutions;
 
     /**

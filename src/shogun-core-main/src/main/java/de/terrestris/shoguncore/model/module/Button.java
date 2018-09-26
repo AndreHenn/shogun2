@@ -3,9 +3,6 @@
  */
 package de.terrestris.shoguncore.model.module;
 
-import javax.persistence.Cacheable;
-import javax.persistence.Entity;
-import javax.persistence.Table;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -17,9 +14,6 @@ import de.terrestris.shoguncore.model.Application;
  *
  * @author Kai Volland
  */
-@Entity
-@Table
-@Cacheable
 public class Button extends Module {
 
     /**

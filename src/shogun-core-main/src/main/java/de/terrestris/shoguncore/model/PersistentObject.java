@@ -1,20 +1,13 @@
-/**
- * Inspired by
- * http://ocpsoft.org/java/hibernate-use-a-base-class-to-map-common-fields/
- */
 package de.terrestris.shoguncore.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import de.terrestris.shoguncore.model.security.PermissionCollection;
+import de.terrestris.shogun2.model.security.PermissionCollection;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.*;
 import org.joda.time.DateTime;
 import org.joda.time.ReadableDateTime;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
@@ -28,9 +21,6 @@ import java.util.Map;
  *
  * @author Nils Bühner
  */
-@MappedSuperclass
-@Cacheable
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public abstract class PersistentObject implements Serializable {
 
     /**
@@ -41,11 +31,6 @@ public abstract class PersistentObject implements Serializable {
     /**
      *
      */
-    @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
-    // The column annotation is used by hibernate for the column creation, e.g.
-    // to build constraints like nullable
-    @Column(updatable = false, nullable = false)
     private final Integer id = null;
 
     /**
@@ -53,8 +38,6 @@ public abstract class PersistentObject implements Serializable {
      * {@link JsonIgnore}. This way, the annotation can be overwritten in
      * subclasses.
      */
-    @Column(updatable = false)
-    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private final ReadableDateTime created;
 
     /**
@@ -62,32 +45,16 @@ public abstract class PersistentObject implements Serializable {
      * {@link JsonIgnore}. This way, the annotation can be overwritten in
      * subclasses.
      */
-    @Column
-    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private ReadableDateTime modified;
 
     /**
      *
      */
-    @ManyToMany
-    @JoinTable(
-        name = "USERPERMISSIONS",
-        joinColumns = @JoinColumn(name = "ENTITY_ID"))
-    @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @Fetch(FetchMode.JOIN)
     private Map<User, PermissionCollection> userPermissions = new HashMap<User, PermissionCollection>();
 
     /**
      *
      */
-    @ManyToMany
-    @JoinTable(
-        name = "GROUPPERMISSIONS",
-        joinColumns = @JoinColumn(name = "ENTITY_ID"))
-    @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @Fetch(FetchMode.JOIN)
     private Map<UserGroup, PermissionCollection> groupPermissions = new HashMap<UserGroup, PermissionCollection>();
 
     /**

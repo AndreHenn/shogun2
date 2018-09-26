@@ -1,17 +1,7 @@
 package de.terrestris.shoguncore.model;
 
-import javax.persistence.Cacheable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.Table;
-
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.locationtech.jts.geom.MultiPolygon;
 
 
 /**
@@ -19,11 +9,6 @@ import org.locationtech.jts.geom.MultiPolygon;
  * @author Kai Volland
  * @author terrestris GmbH & Co. KG
  */
-@Entity
-@Table
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-@Cacheable
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Territory extends PersistentObject {
 
     /**
@@ -39,7 +24,6 @@ public class Territory extends PersistentObject {
     /**
      *
      */
-    @Column(length = Integer.MAX_VALUE)
     private MultiPolygon geometry;
 
     /**
@@ -50,7 +34,9 @@ public class Territory extends PersistentObject {
     }
 
     /**
+     *
      * @param name
+     * @param geometry
      */
     public Territory(String name, MultiPolygon geometry) {
         super();

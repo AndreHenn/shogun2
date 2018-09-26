@@ -2,17 +2,8 @@ package de.terrestris.shoguncore.model.token;
 
 import java.util.UUID;
 
-import javax.persistence.Cacheable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 import org.joda.time.ReadableDateTime;
 
@@ -25,10 +16,6 @@ import de.terrestris.shoguncore.model.PersistentObject;
  * @author Daniel Koch
  * @author Nils Bühner
  */
-@Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-@Cacheable
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public abstract class Token extends PersistentObject {
 
     /**
@@ -39,14 +26,11 @@ public abstract class Token extends PersistentObject {
     /**
      * The (unique) token string itself.
      */
-    @Column(unique = true, updatable = false)
     private final String token;
 
     /**
      * The expiration date of the token. Will be set
      */
-    @Column(updatable = false)
-    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private final ReadableDateTime expirationDate;
 
     /**

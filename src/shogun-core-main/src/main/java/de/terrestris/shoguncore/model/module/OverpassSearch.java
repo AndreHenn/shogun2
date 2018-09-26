@@ -3,38 +3,19 @@
  */
 package de.terrestris.shoguncore.model.module;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.Cacheable;
-import javax.persistence.CollectionTable;
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.JoinColumn;
-import javax.persistence.OrderColumn;
-import javax.persistence.Table;
-
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A search module working with the OSM Overpass API.
  *
  * @author Kai Volland
  */
-@Entity
-@Table
-@Cacheable
 public class OverpassSearch extends Module {
 
     /**
@@ -100,7 +81,6 @@ public class OverpassSearch extends Module {
     /**
      * The response format.
      */
-    @Enumerated(EnumType.STRING)
     private OverpassFormatType format;
 
     /**
@@ -111,12 +91,6 @@ public class OverpassSearch extends Module {
     /**
      * A list of EPSG-Codes the should be available in the module.
      */
-    @ElementCollection
-    @CollectionTable(joinColumns = @JoinColumn(name = "OVERPASS_ID"))
-    @Column(name = "VIEWBOXINTEGER")
-    @OrderColumn(name = "IDX")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @Fetch(FetchMode.JOIN)
     private List<Integer> viewboxlbrt = new ArrayList<Integer>();
 
     /**

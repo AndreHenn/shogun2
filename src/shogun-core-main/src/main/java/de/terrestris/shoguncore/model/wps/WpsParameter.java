@@ -3,23 +3,10 @@ package de.terrestris.shoguncore.model.wps;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.Cacheable;
-import javax.persistence.CollectionTable;
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.JoinColumn;
-
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
@@ -28,11 +15,7 @@ import de.terrestris.shoguncore.model.PersistentObject;
 /**
  *
  */
-@Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.EXISTING_PROPERTY, property = "classType")
-@Cacheable
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public abstract class WpsParameter extends PersistentObject {
 
     /**
@@ -59,22 +42,12 @@ public abstract class WpsParameter extends PersistentObject {
      * A set of formats this {@link WpsParameter} supports, e.g. 'text/xml;
      * subtype=gml/3.1.1' or 'application/wkt' or 'xs:double'
      */
-    @ElementCollection
-    @CollectionTable(joinColumns = @JoinColumn(name = "WPSPARAM_ID"))
-    @Column(name = "FORMAT_NAME")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @Fetch(FetchMode.JOIN)
     private Set<String> supportedFormats = new HashSet<String>();
 
     /**
      * A set of geometry types this {@link WpsParameter} supports, e.g. 'geom',
      * 'point', 'line', 'poly', 'multipoint', 'multiline', 'multipoly'
      */
-    @ElementCollection
-    @CollectionTable(joinColumns = @JoinColumn(name = "WPSPARAM_ID"))
-    @Column(name = "GEOMTYPE_NAME")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @Fetch(FetchMode.JOIN)
     private Set<String> supportedGeometryTypes = new HashSet<String>();
 
     /**

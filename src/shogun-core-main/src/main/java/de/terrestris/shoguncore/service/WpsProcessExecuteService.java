@@ -3,8 +3,6 @@ package de.terrestris.shoguncore.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hibernate.criterion.Restrictions;
-import org.hibernate.criterion.SimpleExpression;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -63,29 +61,6 @@ public class WpsProcessExecuteService<E extends WpsProcessExecute, D extends Wps
             LOG.error("WPSProcessExecute cannot be deleted, failed to autowire WpsPluginService");
             return;
         }
-
-        WpsPluginDao<WpsPlugin> wpsPluginDao = wpsPluginService.getDao();
-
-        SimpleExpression eqProcess = Restrictions.eq("process", wpsProcessExecute);
-        List<WpsPlugin> wpsPlugins = wpsPluginDao.findByCriteria(eqProcess);
-
-        Integer processId = wpsProcessExecute.getId();
-        for (WpsPlugin wpsPlugin : wpsPlugins) {
-            WpsProcessExecute process = wpsPlugin.getProcess();
-            if (process != null) {
-                String msg = String.format(
-                    "Remove WpsProcessExecute (id=%s) from WpsPlugin (id=%s)",
-                    processId, wpsPlugin.getId()
-                );
-                LOG.debug(msg);
-                wpsPlugin.setProcess(null);
-                wpsPluginService.saveOrUpdate(wpsPlugin);
-            }
-        }
-        LOG.debug(String.format("Delete plugin (id=%s)", processId));
-
-        // Call overridden parent to actually delete the entity itself
-        super.delete(wpsProcessExecute);
     }
 
     /**

@@ -5,7 +5,6 @@ package de.terrestris.shoguncore.converter;
 
 import org.apache.commons.lang3.math.NumberUtils;
 
-import javax.persistence.AttributeConverter;
 
 /**
  * This converter can be used for the values of the type Map<String, Object>.
@@ -19,13 +18,12 @@ import javax.persistence.AttributeConverter;
  *
  * @author Nils Bühner
  */
-public class PropertyValueConverter implements AttributeConverter<Object, String> {
+public class PropertyValueConverter {
 
     /**
      * Converts an arbitrary object to it's string representation, that will be
      * stored in the database.
      */
-    @Override
     public String convertToDatabaseColumn(Object attribute) {
         return attribute.toString();
     }
@@ -34,7 +32,6 @@ public class PropertyValueConverter implements AttributeConverter<Object, String
      * Converts a string value from the database to the best matching java
      * primitive type.
      */
-    @Override
     public Object convertToEntityAttribute(String dbData) {
         if ("true".equalsIgnoreCase(dbData)) {
             return true;

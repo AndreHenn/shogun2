@@ -1,9 +1,5 @@
 package de.terrestris.shoguncore.model.layer.source;
 
-import javax.persistence.Cacheable;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -13,9 +9,6 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
  * @author Andre Henn
  * @author terrestris GmbH & Co. KG
  */
-@Entity
-@Table
-@Cacheable
 public class VectorLayerDataSource extends LayerDataSource {
 
     /**

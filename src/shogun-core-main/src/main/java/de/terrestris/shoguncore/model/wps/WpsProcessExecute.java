@@ -3,35 +3,16 @@ package de.terrestris.shoguncore.model.wps;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.persistence.Cacheable;
-import javax.persistence.CollectionTable;
-import javax.persistence.Column;
-import javax.persistence.Convert;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.MapKeyColumn;
-import javax.persistence.Table;
-
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import de.terrestris.shoguncore.converter.PropertyValueConverter;
 
 /**
  *
  */
-@Entity
-@Table
-@Cacheable
 public class WpsProcessExecute extends WpsReference {
 
     /**
@@ -47,30 +28,11 @@ public class WpsProcessExecute extends WpsReference {
     /**
      *
      */
-    @ManyToMany
-    @JoinTable(
-        name = "WPSPROCESSEXECUTES_INPUTS",
-        joinColumns = {@JoinColumn(name = "WPSEXECUTEPROCESS_ID")},
-        inverseJoinColumns = {@JoinColumn(name = "WPSPARAMETER_ID")}
-    )
-    @MapKeyColumn(name = "IDENTIFIER")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @Fetch(FetchMode.JOIN)
     private Map<String, WpsParameter> input = new HashMap<>();
 
     /**
      *
      */
-    @ElementCollection
-    @MapKeyColumn(name = "IDENTIFIER")
-    @Column(name = "VALUE")
-    @CollectionTable(
-        name = "WPSPROCESSEXECUTES_INPUTVALUES",
-        joinColumns = @JoinColumn(name = "WPSEXECUTEPROCESS_ID")
-    )
-    @Convert(converter = PropertyValueConverter.class, attributeName = "value")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @Fetch(FetchMode.JOIN)
     private Map<String, Object> inputDefaultValues = new HashMap<>();
 
     /**

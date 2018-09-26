@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import de.terrestris.shoguncore.dao.GenericHibernateDao;
 import de.terrestris.shoguncore.model.PersistentObject;
 import de.terrestris.shoguncore.util.entity.EntityUtil;
-import org.hibernate.criterion.*;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -14,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.MultiValueMap;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -132,7 +130,7 @@ public abstract class AbstractCrudService<E extends PersistentObject, D extends 
      * <p>
      * This will only work on simple properties of an entity.
      * <p>
-     * The optional special key {@value EntityUtil#RESTRICT_FIELDS_PARAM} can contain a
+     * The optional special key EntityUtil.RESTRICT_FIELDS_PARAM can contain a
      * comma separated list of fieldNames you want to be filled with actual values. If you
      * e.g. pass <code>output:only=id,Name</code>, the returned object will have all other
      * fields being set to null, except for <code>id</code> and <code>name</code> (Notice
@@ -144,47 +142,7 @@ public abstract class AbstractCrudService<E extends PersistentObject, D extends 
     @PostFilter("hasRole(@configHolder.getSuperAdminRoleName()) or hasPermission(filterObject, 'READ')")
     @Transactional(readOnly = true)
     public List<E> findBySimpleFilter(MultiValueMap<String, String> requestedFilter) {
-
-        List<String> restrictFields = EntityUtil.determineRestrictFields(requestedFilter, getEntityClass());
-        requestedFilter.remove(EntityUtil.RESTRICT_FIELDS_PARAM);
-
-        MultiValueMap<String, Object> origFieldNamesToCastedValues = EntityUtil
-            .validFieldNamesWithCastedValues(requestedFilter, getEntityClass());
-
-        // start with an empty list
-        List<E> results = new ArrayList<>();
-
-        List<Criterion> orPredicates = new ArrayList<>();
-
-        if (origFieldNamesToCastedValues != null && !origFieldNamesToCastedValues.isEmpty()) {
-
-            for (String fieldName : origFieldNamesToCastedValues.keySet()) {
-                List<Object> fieldValues = origFieldNamesToCastedValues.get(fieldName);
-
-                // if there are multiple values for a field name, we'll check
-                // for equality and connect them with OR
-                List<Criterion> eqExpressions = new ArrayList<>();
-
-                for (Object fieldValue : fieldValues) {
-                    final SimpleExpression eq = Restrictions.eq(fieldName, fieldValue);
-                    eqExpressions.add(eq);
-                }
-
-                if (!eqExpressions.isEmpty()) {
-                    final Criterion[] eqArray = eqExpressions.toArray(new Criterion[0]);
-                    final Disjunction or = Restrictions.or(eqArray);
-                    orPredicates.add(or);
-                }
-            }
-
-            if (!orPredicates.isEmpty()) {
-                final Criterion[] orArray = orPredicates.toArray(new Criterion[0]);
-                final Conjunction and = Restrictions.and(orArray);
-                results = dao.findByCriteriaRestricted(restrictFields, and);
-            }
-        }
-
-        return results;
+        return null;
     }
 
     /**
@@ -199,7 +157,7 @@ public abstract class AbstractCrudService<E extends PersistentObject, D extends 
     @PostFilter("hasRole(@configHolder.getSuperAdminRoleName()) or hasPermission(filterObject, 'READ')")
     @Transactional(readOnly = true)
     public List<E> findAllWhereFieldEquals(String fieldName, Object fieldValue) {
-        return dao.findAllWhereFieldEquals(fieldName, fieldValue);
+        return null;// dao.findAllWhereFieldEquals(fieldName, fieldValue);
     }
 
     /**
@@ -216,7 +174,7 @@ public abstract class AbstractCrudService<E extends PersistentObject, D extends 
     @PostFilter("hasRole(@configHolder.getSuperAdminRoleName()) or hasPermission(filterObject, 'READ')")
     @Transactional(readOnly = true)
     public List<E> findAllWithCollectionContaining(String fieldName, PersistentObject subElement) {
-        return dao.findAllWithCollectionContaining(fieldName, subElement);
+        return null;// dao.findAllWithCollectionContaining(fieldName, subElement);
     }
 
     /**

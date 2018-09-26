@@ -1,28 +1,12 @@
 package de.terrestris.shoguncore.model.layer.appearance;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.persistence.Cacheable;
-import javax.persistence.CollectionTable;
-import javax.persistence.Column;
-import javax.persistence.Convert;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.MapKeyColumn;
-import javax.persistence.Table;
-
+import de.terrestris.shogun2.model.PersistentObject;
+import de.terrestris.shogun2.model.layer.Layer;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
-import de.terrestris.shoguncore.converter.PropertyValueConverter;
-import de.terrestris.shoguncore.model.PersistentObject;
-import de.terrestris.shoguncore.model.layer.Layer;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * This class holds the appearance properties of a layer {@link Layer} Object
@@ -30,10 +14,6 @@ import de.terrestris.shoguncore.model.layer.Layer;
  * @author Andre Henn
  * @author terrestris GmbH & Co. KG
  */
-@Entity
-@Table
-@Cacheable
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class LayerAppearance extends PersistentObject {
 
     /**
@@ -59,13 +39,6 @@ public class LayerAppearance extends PersistentObject {
     /**
      *
      */
-    @ElementCollection
-    @MapKeyColumn(name = "PROPERTY")
-    @Column(name = "VALUE")
-    @CollectionTable(joinColumns = @JoinColumn(name = "APPEARANCE_ID"))
-    @Convert(converter = PropertyValueConverter.class, attributeName = "value")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @Fetch(FetchMode.JOIN)
     private Map<String, Object> properties = new HashMap<>();
 
     /**
@@ -101,6 +74,7 @@ public class LayerAppearance extends PersistentObject {
     }
 
     /**
+     *
      * @param attribution
      * @param name
      * @param maxResolution

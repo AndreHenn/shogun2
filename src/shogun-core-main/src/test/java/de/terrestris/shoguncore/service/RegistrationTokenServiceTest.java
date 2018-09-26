@@ -15,16 +15,6 @@ public class RegistrationTokenServiceTest extends
         return new RegistrationTokenService<RegistrationToken, RegistrationTokenDao<RegistrationToken>>();
     }
 
-    @Override
-    protected RegistrationToken getExpiredUserToken() {
-        return new RegistrationToken(new User(), -1);
-    }
-
-    @Override
-    protected RegistrationToken getUserTokenWithoutUser() {
-        return new RegistrationToken(null);
-    }
-
     @SuppressWarnings("unchecked")
     @Override
     protected Class<RegistrationTokenDao<RegistrationToken>> getDaoClass() {

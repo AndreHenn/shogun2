@@ -1,12 +1,8 @@
 package de.terrestris.shoguncore.model.layer.source;
 
-import javax.persistence.*;
-
 import de.terrestris.shoguncore.model.layer.util.WmtsTileGrid;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import java.util.List;
 
@@ -16,9 +12,6 @@ import java.util.List;
  * @author Andre Henn
  * @author terrestris GmbH & Co. KG
  */
-@Entity
-@Table
-@Cacheable
 public class WmtsLayerDataSource extends LayerDataSource {
 
     /**
@@ -26,13 +19,8 @@ public class WmtsLayerDataSource extends LayerDataSource {
      */
     private static final long serialVersionUID = 1L;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "TILEGRID_ID")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private WmtsTileGrid tileGrid;
 
-    @ElementCollection(targetClass = String.class)
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private List<String> urls;
 
     private String wmtsLayer;

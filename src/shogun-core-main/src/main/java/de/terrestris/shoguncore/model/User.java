@@ -3,22 +3,9 @@ package de.terrestris.shoguncore.model;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.Cacheable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OrderColumn;
-import javax.persistence.Table;
-
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
@@ -31,47 +18,25 @@ import de.terrestris.shoguncore.converter.UserGroupIdResolver;
 /**
  * @author Nils Bühner
  */
-@Entity
-@Table
-@Cacheable
 public class User extends Person {
 
     private static final long serialVersionUID = 1L;
 
-    @Column(unique = true)
     private String accountName;
 
-    @Column
     @JsonProperty(access = Access.WRITE_ONLY)
     private String password;
 
-    @Column
     private boolean active;
 
-    @ManyToMany
-    @Fetch(FetchMode.JOIN)
-    @JoinTable(
-        joinColumns = {@JoinColumn(name = "USER_ID")},
-        inverseJoinColumns = {@JoinColumn(name = "ROLE_ID")}
-    )
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private Set<Role> roles = new HashSet<Role>();
 
-    @ManyToMany
-    @Fetch(FetchMode.JOIN)
-    @JoinTable(
-        name = "user_usergroup",
-        joinColumns = {@JoinColumn(name = "USER_ID")},
-        inverseJoinColumns = {@JoinColumn(name = "USERGROUP_ID")}
-    )
-    @OrderColumn(name = "IDX")
     @JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "id",
         resolver = UserGroupIdResolver.class
     )
     @JsonIdentityReference(alwaysAsId = true)
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private Set<UserGroup> userGroups = new HashSet<UserGroup>();
 
     /**

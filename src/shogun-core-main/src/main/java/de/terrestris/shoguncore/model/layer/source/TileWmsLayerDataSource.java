@@ -1,11 +1,7 @@
 package de.terrestris.shoguncore.model.layer.source;
 
-import de.terrestris.shoguncore.model.layer.util.TileGrid;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CascadeType;
-import org.hibernate.annotations.*;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -17,9 +13,6 @@ import javax.persistence.*;
  * @author Andre Henn
  * @author terrestris GmbH & Co. KG
  */
-@Table
-@Entity
-@Cacheable
 public class TileWmsLayerDataSource extends ImageWmsLayerDataSource {
 
     /**
@@ -27,16 +20,11 @@ public class TileWmsLayerDataSource extends ImageWmsLayerDataSource {
      */
     private static final long serialVersionUID = 1L;
 
-    @ManyToOne
-    @Cascade(CascadeType.SAVE_UPDATE)
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @Fetch(FetchMode.JOIN)
     private TileGrid tileGrid;
 
     /**
      * Whether to request the layer with TILED=true.
      */
-    @Column(name = "REQUEST_WITH_TILED")
     private Boolean requestWithTiled = Boolean.TRUE;
 
     /**
@@ -47,6 +35,7 @@ public class TileWmsLayerDataSource extends ImageWmsLayerDataSource {
     }
 
     /**
+     *
      * @param name
      * @param type
      * @param url

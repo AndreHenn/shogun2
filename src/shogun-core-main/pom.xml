@@ -28,13 +28,6 @@
             <version>1.2</version>
         </dependency>
 
-        <!-- #### CORE DEPENDENCIES #### -->
-        <!-- Hibernate -->
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
-        </dependency>
-
         <!-- Spring -->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -75,6 +68,10 @@
         <dependency>
             <groupId>org.springframework.ldap</groupId>
             <artifactId>spring-ldap-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-mongodb</artifactId>
         </dependency>
 
         <!-- Spring Security -->
@@ -172,24 +169,6 @@
             <artifactId>spring-test</artifactId>
         </dependency>
 
-        <!-- #### OTHER DEPENDENCIES #### -->
-
-        <!-- Persistence -->
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-        </dependency>
-
-        <!-- Joda Time -->
-        <dependency>
-            <groupId>joda-time</groupId>
-            <artifactId>joda-time</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.jadira.usertype</groupId>
-            <artifactId>usertype.core</artifactId>
-        </dependency>
-
         <!-- Scalr/Image processing -->
         <dependency>
             <groupId>org.imgscalr</groupId>
@@ -253,12 +232,6 @@
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpmime</artifactId>
-        </dependency>
-
-        <!-- ehcache -->
-        <dependency>
-            <groupId>org.ehcache</groupId>
-            <artifactId>ehcache</artifactId>
         </dependency>
 
         <!-- Java -->

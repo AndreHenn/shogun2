@@ -3,17 +3,8 @@
  */
 package de.terrestris.shoguncore.model;
 
-import javax.persistence.Cacheable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.Table;
-
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -23,11 +14,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @author Johannes Weskamm
  * @author Daniel Koch
  */
-@Entity
-@Table
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-@Cacheable
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class File extends PersistentObject {
 
     /**
@@ -54,7 +40,6 @@ public class File extends PersistentObject {
      *
      */
     @JsonIgnore
-    @Column(length = Integer.MAX_VALUE)
     private byte[] file;
 
     /**

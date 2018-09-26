@@ -6,24 +6,8 @@ package de.terrestris.shoguncore.model.module;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.persistence.Cacheable;
-import javax.persistence.CollectionTable;
-import javax.persistence.Column;
-import javax.persistence.Convert;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.JoinColumn;
-import javax.persistence.MapKeyColumn;
-import javax.persistence.Table;
-
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import de.terrestris.shoguncore.converter.PropertyValueConverter;
 import de.terrestris.shoguncore.model.PersistentObject;
@@ -34,17 +18,12 @@ import de.terrestris.shoguncore.model.layout.Layout;
  * be connected to a {@link Layout} and it stores basic properties (like
  * <i>border</i>, <i>height</i> , <i>width</i>, ...).
  * <p>
- * This class is the simple base class of either simple (e.g. {@link LayerTree})
+ * This class is the simple base class of either simple (e.g. LayerTree)
  * or complex ({@link CompositeModule}) subclasses and can thereby considered
  * as a node in a tree structure of (sub-)modules.
  *
  * @author Nils Bühner
  */
-@Entity
-@Table
-@Inheritance(strategy = InheritanceType.JOINED)
-@Cacheable
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Module extends PersistentObject {
 
     /**
@@ -65,13 +44,6 @@ public class Module extends PersistentObject {
     /**
      *
      */
-    @ElementCollection
-    @MapKeyColumn(name = "PROPERTY")
-    @Column(name = "VALUE")
-    @CollectionTable(joinColumns = @JoinColumn(name = "MODULE_ID"))
-    @Convert(converter = PropertyValueConverter.class, attributeName = "value")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @Fetch(FetchMode.JOIN)
     private Map<String, Object> properties = new HashMap<String, Object>();
 
     /**

@@ -1,30 +1,16 @@
 package de.terrestris.shoguncore.model;
 
-import javax.persistence.Cacheable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 /**
  * @author Nils Bühner
  */
-@Entity
-@Table
-@Cacheable
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Role extends PersistentObject {
 
     private static final long serialVersionUID = 1L;
 
-    @Column(unique = true, nullable = false)
     private String name;
 
-    @Column
     private String description;
 
     /**

@@ -15,7 +15,6 @@ import static org.mockito.Mockito.when;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.hibernate.HibernateException;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -116,19 +115,6 @@ public class UserServiceTest extends PermissionAwareCrudServiceTest<User, UserDa
         assertEquals(expectedUser, actualUser);
     }
 
-    @Test(expected = HibernateException.class)
-    public void findByAccountName_shouldThrowHibernateException() {
-        String accountName = "erroraccount";
-
-        // mock the dao
-        doThrow(new HibernateException("errormsg"))
-            .when(dao).findByAccountName(accountName);
-
-        crudService.findByAccountName(accountName);
-
-        verify(dao, times(1)).findByAccountName(accountName);
-        verifyNoMoreInteractions(dao);
-    }
 
     @Test
     public void findByEmail_shouldFindAsExpected() {
@@ -165,19 +151,6 @@ public class UserServiceTest extends PermissionAwareCrudServiceTest<User, UserDa
         assertEquals(expectedUser, actualUser);
     }
 
-    @Test(expected = HibernateException.class)
-    public void findByEmail_shouldThrowHibernateException() {
-        String email = "errormail@example.com";
-
-        // mock the dao
-        doThrow(new HibernateException("errormsg"))
-            .when(dao).findByEmail(email);
-
-        crudService.findByEmail(email);
-
-        verify(dao, times(1)).findByEmail(email);
-        verifyNoMoreInteractions(dao);
-    }
 
     @Test
     public void registerUser_shouldRegisterNonExistingUserAsExpected() throws Exception {

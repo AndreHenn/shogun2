@@ -6,23 +6,8 @@ package de.terrestris.shoguncore.model.module;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Cacheable;
-import javax.persistence.CollectionTable;
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OrderColumn;
-import javax.persistence.Table;
-
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
@@ -36,9 +21,6 @@ import de.terrestris.shoguncore.model.layer.Layer;
  *
  * @author Kai Volland
  */
-@Entity
-@Table
-@Cacheable
 public class WfsSearch extends Module {
 
     /**
@@ -70,12 +52,6 @@ public class WfsSearch extends Module {
     /**
      * The layers to search in.
      */
-    @ManyToMany
-    @JoinTable(
-        joinColumns = {@JoinColumn(name = "WFSSEARCH_ID")},
-        inverseJoinColumns = {@JoinColumn(name = "LAYER_ID")}
-    )
-    @OrderColumn(name = "IDX")
     // The List of layers will be serialized (JSON) as an array of ID values
     @JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
@@ -83,22 +59,12 @@ public class WfsSearch extends Module {
         resolver = LayerIdResolver.class
     )
     @JsonIdentityReference(alwaysAsId = true)
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @Fetch(FetchMode.JOIN)
     private List<Layer> layers = new ArrayList<Layer>();
 
     /**
      * The allowed data-types to match against in the describefeaturetype
      * response
      */
-    @ElementCollection
-    @CollectionTable(
-        name = "WFSSEARCHES_FEATUREDATATYPES",
-        joinColumns = @JoinColumn(name = "WFSSEARCH_ID"))
-    @Column(name = "FEATUREDATATYPE")
-    @OrderColumn(name = "IDX")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @Fetch(FetchMode.JOIN)
     private List<String> allowedFeatureTypeDataTypes = new ArrayList<String>();
 
     /**

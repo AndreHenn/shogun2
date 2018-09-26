@@ -1,18 +1,9 @@
 package de.terrestris.shoguncore.model.wps;
 
-import javax.persistence.Cacheable;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
@@ -24,9 +15,6 @@ import de.terrestris.shoguncore.model.Plugin;
 /**
  *
  */
-@Entity
-@Table
-@Cacheable
 public class WpsPlugin extends Plugin {
 
     /**
@@ -37,15 +25,12 @@ public class WpsPlugin extends Plugin {
     /**
      *
      */
-    @ManyToOne
     @JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "id",
         resolver = WpsProcessExecuteIdResolver.class
     )
     @JsonIdentityReference(alwaysAsId = true)
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @Fetch(FetchMode.JOIN)
     private WpsProcessExecute process;
 
     /**

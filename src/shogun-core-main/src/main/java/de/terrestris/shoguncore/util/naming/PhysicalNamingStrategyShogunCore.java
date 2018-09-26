@@ -2,9 +2,6 @@ package de.terrestris.shoguncore.util.naming;
 
 import de.terrestris.shoguncore.util.dialect.ShogunCoreOracleDialect;
 import org.apache.commons.lang3.StringUtils;
-import org.hibernate.boot.model.naming.Identifier;
-import org.hibernate.boot.model.naming.PhysicalNamingStrategy;
-import org.hibernate.engine.jdbc.env.spi.JdbcEnvironment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
@@ -15,7 +12,7 @@ import java.io.Serializable;
  *
  * @author Nils Bühner
  */
-public class PhysicalNamingStrategyShogunCore implements PhysicalNamingStrategy, Serializable {
+public class PhysicalNamingStrategyShogun2 implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -26,7 +23,7 @@ public class PhysicalNamingStrategyShogunCore implements PhysicalNamingStrategy,
     @Autowired(required = false)
     @Qualifier("tablePrefix")
     private String tablePrefix;
-
+/*
     @Override
     public Identifier toPhysicalSequenceName(Identifier name, JdbcEnvironment jdbcEnvironment) {
         return name;
@@ -41,10 +38,11 @@ public class PhysicalNamingStrategyShogunCore implements PhysicalNamingStrategy,
     public Identifier toPhysicalSchemaName(Identifier name, JdbcEnvironment jdbcEnvironment) {
         return name;
     }
+    */
 
     /**
      * Converts table names to lower case and limits the length if necessary.
-     */
+
     @Override
     public Identifier toPhysicalTableName(Identifier tableIdentifier, JdbcEnvironment context) {
         return convertToLimitedLowerCase(context, tableIdentifier, tablePrefix);
@@ -52,7 +50,7 @@ public class PhysicalNamingStrategyShogunCore implements PhysicalNamingStrategy,
 
     /**
      * Converts column names to lower case and limits the length if necessary.
-     */
+
     @Override
     public Identifier toPhysicalColumnName(Identifier columnIdentifier, JdbcEnvironment context) {
         return convertToLimitedLowerCase(context, columnIdentifier, null);
@@ -68,7 +66,7 @@ public class PhysicalNamingStrategyShogunCore implements PhysicalNamingStrategy,
      * @param prefix     Optional prefix to use for the idenifiert. Will be ignored, if
      *                   null
      * @return
-     */
+
     protected Identifier convertToLimitedLowerCase(JdbcEnvironment context, Identifier identifier, String prefix) {
         String identifierText = identifier.getText();
 
@@ -97,7 +95,7 @@ public class PhysicalNamingStrategyShogunCore implements PhysicalNamingStrategy,
      * @param context The current JDBC context
      * @return The identifier length limit for the given context. null
      * otherwise.
-     */
+
     protected Integer getIdentifierLengthLimit(JdbcEnvironment context) {
         // https://docs.jboss.org/hibernate/orm/5.0/javadocs/org/hibernate/dialect/package-summary.html
         String dialectName = context.getDialect().getClass().getSimpleName();
@@ -121,7 +119,7 @@ public class PhysicalNamingStrategyShogunCore implements PhysicalNamingStrategy,
 
     /**
      * @return the tablePrefix
-     */
+
     public String getTablePrefix() {
         return tablePrefix;
     }

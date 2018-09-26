@@ -2,49 +2,23 @@ package de.terrestris.shoguncore.model;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
-import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 /**
  * @author Nils Bühner
  */
-@Entity
-@Table
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@Cacheable
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class UserGroup extends PersistentObject {
 
     private static final long serialVersionUID = 1L;
 
-    @Column
     private String name;
 
-    @ManyToOne
     private User owner;
 
-    @ManyToMany
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @Fetch(FetchMode.JOIN)
-    @JoinTable(
-        name = "user_usergroup",
-        joinColumns = {@JoinColumn(name = "USERGROUP_ID")},
-        inverseJoinColumns = {@JoinColumn(name = "USER_ID")}
-    )
     private Set<User> members = new HashSet<User>();
 
-    @ManyToMany
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JoinTable(
-        joinColumns = {@JoinColumn(name = "USERGROUP_ID")},
-        inverseJoinColumns = {@JoinColumn(name = "ROLE_ID")}
-    )
     private Set<Role> roles = new HashSet<Role>();
 
     /**

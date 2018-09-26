@@ -1,7 +1,5 @@
 package de.terrestris.shoguncore.service;
 
-import org.hibernate.criterion.Restrictions;
-import org.hibernate.criterion.SimpleExpression;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -44,13 +42,13 @@ public class RoleService<E extends Role, D extends RoleDao<E>> extends
      */
     @Transactional(readOnly = true)
     public E findByRoleName(String roleName) {
-
+        /*
         SimpleExpression eqRoleName =
             Restrictions.eq("name", roleName);
 
         E role = dao.findByUniqueCriteria(eqRoleName);
-
-        return role;
+*/
+        return null;
     }
 
     /**

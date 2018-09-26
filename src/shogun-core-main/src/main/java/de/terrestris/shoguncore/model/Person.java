@@ -2,47 +2,24 @@ package de.terrestris.shoguncore.model;
 
 import java.util.Locale;
 
-import javax.persistence.Cacheable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.Table;
-
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.Type;
 import org.joda.time.LocalDate;
 
-/**
- * @author Nils Bühner
- */
-@Entity
-@Table
-@Inheritance(strategy = InheritanceType.JOINED)
-@Cacheable
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+
 public class Person extends PersistentObject {
 
     private static final long serialVersionUID = 1L;
 
-    @Column
     private String firstName;
 
-    @Column
     private String lastName;
 
-    @Column
     private String email;
 
-    @Column
-    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
     private LocalDate birthday;
 
-    @Column
     private Locale language;
 
     public Person() {

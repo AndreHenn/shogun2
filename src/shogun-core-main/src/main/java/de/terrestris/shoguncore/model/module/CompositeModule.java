@@ -6,22 +6,8 @@ package de.terrestris.shoguncore.model.module;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Cacheable;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OrderColumn;
-import javax.persistence.Table;
-
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-
 import de.terrestris.shoguncore.model.layout.Layout;
 
 /**
@@ -30,9 +16,6 @@ import de.terrestris.shoguncore.model.layout.Layout;
  *
  * @author Nils Bühner
  */
-@Entity
-@Table
-@Cacheable
 public class CompositeModule extends Module {
 
     /**
@@ -45,23 +28,11 @@ public class CompositeModule extends Module {
      * property hints/musts for the child modules of this
      * {@link CompositeModule}.
      */
-    @ManyToOne
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @Fetch(FetchMode.JOIN)
     private Layout layout;
 
     /**
      *
      */
-    @ManyToMany
-    @JoinTable(
-        name = "MODULES_SUBMODULES",
-        joinColumns = {@JoinColumn(name = "MODULE_ID")},
-        inverseJoinColumns = {@JoinColumn(name = "SUBMODULE_ID")}
-    )
-    @OrderColumn(name = "IDX")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @Fetch(FetchMode.JOIN)
     private List<Module> subModules = new ArrayList<Module>();
 
     /**

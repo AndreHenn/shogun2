@@ -1,7 +1,5 @@
 package de.terrestris.shoguncore.dao;
 
-import org.hibernate.criterion.Restrictions;
-import org.hibernate.criterion.SimpleExpression;
 import org.springframework.stereotype.Repository;
 
 import de.terrestris.shoguncore.model.User;
@@ -31,9 +29,7 @@ public class UserDao<E extends User> extends PersonDao<E> {
      * @return
      */
     public E findByAccountName(String accountName) {
-        SimpleExpression eqAccountName =
-            Restrictions.eq("accountName", accountName);
-        return this.findByUniqueCriteria(eqAccountName);
+return null;
     }
 
     /**
@@ -41,7 +37,6 @@ public class UserDao<E extends User> extends PersonDao<E> {
      * @return
      */
     public E findByEmail(String email) {
-        SimpleExpression eqEmail = Restrictions.eq("email", email);
-        return this.findByUniqueCriteria(eqEmail);
+        return null;
     }
 }

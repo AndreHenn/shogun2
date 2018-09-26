@@ -1,7 +1,5 @@
 package de.terrestris.shoguncore.util.interceptor;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -21,13 +19,11 @@ public class OgcMessage {
      * * WFS
      * * WCS
      */
-    @Enumerated(EnumType.STRING)
     private OgcEnum.ServiceType service;
 
     /**
      * The OGC operation type, e.g. GetMap.
      */
-    @Enumerated(EnumType.STRING)
     private OgcEnum.OperationType operation;
 
     /**
@@ -42,7 +38,6 @@ public class OgcMessage {
      * * DENY
      * * MODIFY
      */
-    @Enumerated(EnumType.STRING)
     private InterceptorEnum.RuleType requestRule;
 
     /**
@@ -51,7 +46,6 @@ public class OgcMessage {
      * * DENY
      * * MODIFY
      */
-    @Enumerated(EnumType.STRING)
     private InterceptorEnum.RuleType responseRule;
 
     /**

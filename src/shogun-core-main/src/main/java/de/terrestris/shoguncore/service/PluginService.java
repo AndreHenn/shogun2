@@ -3,9 +3,6 @@ package de.terrestris.shoguncore.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.h2.util.StringUtils;
-import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,6 +14,7 @@ import de.terrestris.shoguncore.dao.ApplicationDao;
 import de.terrestris.shoguncore.dao.PluginDao;
 import de.terrestris.shoguncore.model.Application;
 import de.terrestris.shoguncore.model.Plugin;
+import org.springframework.util.StringUtils;
 
 /**
  * Service class for the {@link Plugin} model.
@@ -78,7 +76,7 @@ public class PluginService<E extends Plugin, D extends PluginDao<E>> extends
      */
     @Transactional(readOnly = true)
     public String getPluginSource(String simpleClassName) throws Exception {
-
+        /*
         // qualify className
         String className = pluginNamespace + "." + simpleClassName;
 
@@ -90,11 +88,11 @@ public class PluginService<E extends Plugin, D extends PluginDao<E>> extends
             code = plugin.getSourceCode();
         }
 
-        if (StringUtils.isNullOrEmpty(code)) {
+        if (!StringUtils.isEmpty(code)) {
             throw new Exception("Could not retrieve code for '" + className + "'");
         }
-
-        return code;
+        */
+        return null;
     }
 
     /**

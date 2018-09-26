@@ -8,13 +8,8 @@ import de.terrestris.shoguncore.converter.PluginIdResolver;
 import de.terrestris.shoguncore.model.module.CompositeModule;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import org.joda.time.ReadableDateTime;
 
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -25,11 +20,6 @@ import java.util.Locale;
  *
  * @author Nils Bühner
  */
-@Entity
-@Table
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@Cacheable
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Application extends PersistentObject {
 
     private static final long serialVersionUID = 1L;
@@ -37,58 +27,43 @@ public class Application extends PersistentObject {
     /**
      * The name of the application.
      */
-    @Column(nullable = false)
     private String name;
 
     /**
      * The description of the application
      */
-    @Column
     private String description;
 
     /**
      * The language of the application.
      */
-    @Column
     private Locale language;
 
     /**
      * Whether this application is open, meaning it is accessible to the general
      * non-authenticated public.
      */
-    @Column
     private Boolean open = true;
 
     /**
      * Whether this application is currently accessible at all. Applications can
      * be disabled/enabled by setting this flag.
      */
-    @Column
     private Boolean active = true;
 
     /**
      * The URL under which the application is accessible.
      */
-    @Column
     private String url;
 
     /**
      *
      */
-    @ManyToOne
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @Fetch(FetchMode.JOIN)
     private CompositeModule viewport;
 
     /**
      * The plugins available in this application
      */
-    @ManyToMany
-    @JoinTable(
-        joinColumns = {@JoinColumn(name = "APPLICATION_ID")},
-        inverseJoinColumns = {@JoinColumn(name = "PLUGIN_ID")}
-    )
-    @OrderColumn(name = "IDX")
     // The List of layers will be serialized (JSON) as an array of ID values
     @JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
@@ -96,8 +71,6 @@ public class Application extends PersistentObject {
         resolver = PluginIdResolver.class
     )
     @JsonIdentityReference(alwaysAsId = true)
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @Fetch(FetchMode.SUBSELECT)
     private List<Plugin> plugins = new ArrayList<>();
 
     /**

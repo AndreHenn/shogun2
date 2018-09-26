@@ -1,20 +1,7 @@
 package de.terrestris.shoguncore.model.layer;
 
-import javax.persistence.Cacheable;
-import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import de.terrestris.shoguncore.model.PersistentObject;
 import de.terrestris.shoguncore.model.layer.appearance.LayerAppearance;
@@ -28,11 +15,6 @@ import de.terrestris.shoguncore.model.layer.source.LayerDataSource;
  * @author Nils Bühner
  * @author terrestris GmbH & Co. KG
  */
-@Entity
-@Table
-@Inheritance(strategy = InheritanceType.JOINED)
-@Cacheable
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Layer extends PersistentObject {
 
     /**
@@ -53,19 +35,11 @@ public class Layer extends PersistentObject {
     /**
      *
      */
-    @ManyToOne
-    @Cascade(CascadeType.SAVE_UPDATE)
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @Fetch(FetchMode.JOIN)
     private LayerDataSource source;
 
     /**
      *
      */
-    @ManyToOne
-    @Cascade(CascadeType.SAVE_UPDATE)
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @Fetch(FetchMode.JOIN)
     private LayerAppearance appearance;
 
     /**

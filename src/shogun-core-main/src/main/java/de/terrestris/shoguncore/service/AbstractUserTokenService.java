@@ -2,8 +2,6 @@ package de.terrestris.shoguncore.service;
 
 import java.lang.reflect.InvocationTargetException;
 
-import org.hibernate.criterion.Restrictions;
-import org.hibernate.criterion.SimpleExpression;
 import org.springframework.transaction.annotation.Transactional;
 
 import de.terrestris.shoguncore.dao.AbstractUserTokenDao;
@@ -60,12 +58,12 @@ public abstract class AbstractUserTokenService<E extends UserToken, D extends Ab
      */
     @Transactional(readOnly = true)
     public E findByUser(User user) {
-
+    /*
         SimpleExpression eqUser = Restrictions.eq("user", user);
 
         E userToken = dao.findByUniqueCriteria(eqUser);
-
-        return userToken;
+*/
+        return null;
     }
 
     /**

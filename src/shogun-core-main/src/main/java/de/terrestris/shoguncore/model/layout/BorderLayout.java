@@ -6,21 +6,8 @@ package de.terrestris.shoguncore.model.layout;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Cacheable;
-import javax.persistence.CollectionTable;
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OrderColumn;
-import javax.persistence.Table;
-
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import de.terrestris.shoguncore.model.module.CompositeModule;
 
@@ -34,9 +21,6 @@ import de.terrestris.shoguncore.model.module.CompositeModule;
  *
  * @author Nils Bühner
  */
-@Table
-@Entity
-@Cacheable
 public class BorderLayout extends Layout {
 
     /**
@@ -53,14 +37,7 @@ public class BorderLayout extends Layout {
     }
 
     /**
-     *
      */
-    @ElementCollection
-    @CollectionTable(joinColumns = @JoinColumn(name = "LAYOUT_ID"))
-    @Column(name = "REGION")
-    @OrderColumn(name = "IDX")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @Fetch(FetchMode.JOIN)
     private List<String> regions = new ArrayList<String>();
 
     /**
