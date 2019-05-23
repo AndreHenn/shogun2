@@ -11,7 +11,7 @@ import java.sql.Types;
  * @author Andre Henn
  * @author terrestris GmbH & co. KG
  */
-public class Shogun2OracleDialect {
+public class ShogunCoreOracleDialect {
 
     /**
      *

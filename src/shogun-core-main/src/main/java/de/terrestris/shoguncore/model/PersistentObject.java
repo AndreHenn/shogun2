@@ -1,14 +1,14 @@
 package de.terrestris.shoguncore.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import de.terrestris.shogun2.model.security.PermissionCollection;
+import de.terrestris.shoguncore.model.security.PermissionCollection;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.joda.time.DateTime;
-import org.joda.time.ReadableDateTime;
+import org.springframework.data.annotation.Id;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,47 +28,53 @@ public abstract class PersistentObject implements Serializable {
      */
     private static final long serialVersionUID = 1L;
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
     /**
      *
      */
-    private final Integer id = null;
+    @Id
+    private String id;
 
     /**
      * The getter of this property {@link #getCreated()} is annotated with
      * {@link JsonIgnore}. This way, the annotation can be overwritten in
      * subclasses.
      */
-    private final ReadableDateTime created;
+    private final Date created;
 
     /**
      * The getter of this property {@link #getModified()} is annotated with
      * {@link JsonIgnore}. This way, the annotation can be overwritten in
      * subclasses.
      */
-    private ReadableDateTime modified;
+    private Date modified;
 
     /**
      *
      */
-    private Map<User, PermissionCollection> userPermissions = new HashMap<User, PermissionCollection>();
+    private Map<String, PermissionCollection> userPermissions = new HashMap();
 
     /**
      *
      */
-    private Map<UserGroup, PermissionCollection> groupPermissions = new HashMap<UserGroup, PermissionCollection>();
+    private Map<String, PermissionCollection> groupPermissions = new HashMap();
 
     /**
      * Constructor
      */
     protected PersistentObject() {
-        this.created = DateTime.now();
-        this.modified = DateTime.now();
+        final Date createdDate = new Date();
+        this.created = createdDate;
+        this.modified = createdDate;
     }
 
     /**
      * @return
      */
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
@@ -79,7 +85,7 @@ public abstract class PersistentObject implements Serializable {
      * @return The date of the creation of the entity.
      */
     @JsonIgnore
-    public ReadableDateTime getCreated() {
+    public Date getCreated() {
         return created;
     }
 
@@ -90,35 +96,35 @@ public abstract class PersistentObject implements Serializable {
      * @return The date of the last modification of the entity.
      */
     @JsonIgnore
-    public ReadableDateTime getModified() {
+    public Date getModified() {
         return modified;
     }
 
     /**
      * @param modified
      */
-    public void setModified(ReadableDateTime modified) {
+    public void setModified(Date modified) {
         this.modified = modified;
     }
 
     /**
      * @return the userPermissions
      */
-    public Map<User, PermissionCollection> getUserPermissions() {
+    public Map<String, PermissionCollection> getUserPermissions() {
         return userPermissions;
     }
 
     /**
      * @param userPermissions the userPermissions to set
      */
-    public void setUserPermissions(Map<User, PermissionCollection> userPermissions) {
+    public void setUserPermissions(Map<String, PermissionCollection> userPermissions) {
         this.userPermissions = userPermissions;
     }
 
     /**
      * @return the groupPermissions
      */
-    public Map<UserGroup, PermissionCollection> getGroupPermissions() {
+    public Map<String, PermissionCollection> getGroupPermissions() {
         return groupPermissions;
     }
 
@@ -126,7 +132,7 @@ public abstract class PersistentObject implements Serializable {
      * @param groupPermissions the groupPermissions to set
      */
     public void setGroupPermissions(
-        Map<UserGroup, PermissionCollection> groupPermissions) {
+        Map<String, PermissionCollection> groupPermissions) {
         this.groupPermissions = groupPermissions;
     }
 

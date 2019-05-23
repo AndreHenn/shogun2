@@ -65,7 +65,7 @@ public abstract class AbstractCrudService<E extends PersistentObject, D extends 
      */
     @PostAuthorize("hasRole(@configHolder.getSuperAdminRoleName()) or hasPermission(returnObject, 'READ')")
     @Transactional(readOnly = true)
-    public E findById(Integer id) {
+    public E findById(String id) {
         return dao.findById(id);
     }
 
@@ -75,21 +75,21 @@ public abstract class AbstractCrudService<E extends PersistentObject, D extends 
      * non-existence would be an actual error.
      *
      * @param id
-     */
+     * @return
+
     @PostAuthorize("hasRole(@configHolder.getSuperAdminRoleName()) or hasPermission(returnObject, 'READ')")
     @Transactional(readOnly = true)
     public E loadById(int id) {
         return dao.loadById(id);
-    }
+    }*/
 
     /**
-     *
-     */
+     * @return
     @PostFilter("hasRole(@configHolder.getSuperAdminRoleName()) or hasPermission(filterObject, 'READ')")
     @Transactional(readOnly = true)
     public List<E> findAll() {
         return dao.findAll();
-    }
+    }*/
 
     /**
      * Returns all entities, but possibly with only the passed fields set with actual values.

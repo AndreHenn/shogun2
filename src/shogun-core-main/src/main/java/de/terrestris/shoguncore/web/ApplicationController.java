@@ -54,7 +54,7 @@ public class ApplicationController<E extends Application, D extends ApplicationD
     List<E> findAllApplications() {
         LOG.info("Trying to find all Applications.");
 
-        return service.findAll();
+        return null;//service.findAll();
     }
 
 }

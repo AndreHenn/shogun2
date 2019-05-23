@@ -32,10 +32,8 @@ public class ImageWmsLayerDataSource extends LayerDataSource {
      */
     private String layerStyles;
 
-    @Column
     private Boolean requestableByPath;
 
-    @Column
     private String customRequestPath;
 
     /**

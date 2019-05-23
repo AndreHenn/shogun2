@@ -51,7 +51,7 @@ public class PluginControllerTest {
         expectedResult.add(resultMsg);
 
         Mockito.when(pluginService.preCheckDelete(
-            Matchers.any(Integer.class))
+            Matchers.any(String.class))
         ).thenReturn(expectedResult);
 
         String PRECHECKDELETE_ENDPOINT = "/plugins/preCheckDelete.action";
@@ -68,7 +68,7 @@ public class PluginControllerTest {
             objectMapper.writeValueAsString(ResultSet.success(expectedResult)), content);
 
         Mockito.verify(pluginService, Mockito.times(1)).
-            preCheckDelete(Matchers.any(Integer.class));
+            preCheckDelete(Matchers.any(String.class));
         Mockito.verifyNoMoreInteractions(pluginService);
     }
 

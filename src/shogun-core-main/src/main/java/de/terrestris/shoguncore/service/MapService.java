@@ -1,21 +1,20 @@
 package de.terrestris.shoguncore.service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import de.terrestris.shoguncore.dao.LayerDao;
 import de.terrestris.shoguncore.dao.MapDao;
 import de.terrestris.shoguncore.model.PersistentObject;
 import de.terrestris.shoguncore.model.layer.Layer;
 import de.terrestris.shoguncore.model.module.Map;
 import de.terrestris.shoguncore.model.module.Module;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Service class for the {@link Module} model.
@@ -77,13 +76,13 @@ public class MapService<E extends Map, D extends MapDao<E>> extends
     @SuppressWarnings("unchecked")
     @PreAuthorize("hasRole(@configHolder.getSuperAdminRoleName()) or hasPermission(#mapModuleId, 'de.terrestris.shoguncore.model.module.Map', 'UPDATE')")
     public List<Layer> setLayersForMap(Integer mapModuleId, List<Integer> layerIds) throws Exception {
-        E module = this.findById(mapModuleId);
+        E module = this.findById(mapModuleId + "");
         List<Layer> layers = new ArrayList<Layer>();
 
         if (module instanceof Map) {
             Map mapModule = (Map) module;
             for (Integer id : layerIds) {
-                PersistentObject entity = this.layerService.findById(id);
+                PersistentObject entity = this.layerService.findById(id + "");
                 if (entity instanceof Layer) {
                     Layer layer = (Layer) entity;
                     if (layer != null) {

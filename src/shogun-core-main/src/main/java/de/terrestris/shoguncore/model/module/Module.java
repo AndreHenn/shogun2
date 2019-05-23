@@ -1,21 +1,15 @@
-/**
- *
- */
 package de.terrestris.shoguncore.model.module;
+
+import de.terrestris.shoguncore.model.PersistentObject;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-
-import de.terrestris.shoguncore.converter.PropertyValueConverter;
-import de.terrestris.shoguncore.model.PersistentObject;
-import de.terrestris.shoguncore.model.layout.Layout;
-
 /**
  * A module is the visual representation of a component in the GUI. A module can
- * be connected to a {@link Layout} and it stores basic properties (like
+ * be connected to a layout and it stores basic properties (like
  * <i>border</i>, <i>height</i> , <i>width</i>, ...).
  * <p>
  * This class is the simple base class of either simple (e.g. LayerTree)
@@ -44,7 +38,7 @@ public class Module extends PersistentObject {
     /**
      *
      */
-    private Map<String, Object> properties = new HashMap<String, Object>();
+    private Map<String, Object> properties = new HashMap<>();
 
     /**
      * Explicitly adding the default constructor as this is important, e.g. for

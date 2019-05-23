@@ -1,10 +1,10 @@
 package de.terrestris.shoguncore.service;
 
-import org.joda.time.DateTime;
-import org.springframework.transaction.annotation.Transactional;
-
 import de.terrestris.shoguncore.dao.AbstractTokenDao;
 import de.terrestris.shoguncore.model.token.Token;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Date;
 
 /**
  * @author Daniel Koch
@@ -57,15 +57,15 @@ public abstract class AbstractTokenService<E extends Token, D extends AbstractTo
             throw new Exception("The provided token is null.");
         }
 
-        DateTime expirationDate = (DateTime) token.getExpirationDate();
+        Date expirationDate = null;//(DateTime) token.getExpirationDate();
 
         String tokenValue = token.getToken();
 
         // check if the token expire date is valid
-        if (expirationDate.isBeforeNow()) {
-            throw new Exception("The token '" + tokenValue + "' expired on '"
-                + expirationDate + "'");
-        }
+//        if (expirationDate.isBeforeNow()) {
+//            throw new Exception("The token '" + tokenValue + "' expired on '"
+//                + expirationDate + "'");
+//        }
 
     }
 

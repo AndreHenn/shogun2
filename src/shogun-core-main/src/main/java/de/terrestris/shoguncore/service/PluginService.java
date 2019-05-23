@@ -101,7 +101,7 @@ public class PluginService<E extends Plugin, D extends PluginDao<E>> extends
      */
     @PreAuthorize("hasRole(@configHolder.getSuperAdminRoleName()) or hasPermission(#pluginId, 'de.terrestris.shoguncore.model.Plugin', 'DELETE')")
     @Transactional(readOnly = true)
-    public List<String> preCheckDelete(Integer pluginId) {
+    public List<String> preCheckDelete(String pluginId) {
         List<String> result = new ArrayList<>();
         E plugin = this.dao.findById(pluginId);
         if (plugin != null) {
@@ -128,20 +128,8 @@ public class PluginService<E extends Plugin, D extends PluginDao<E>> extends
         }
 
         List<Application> apps = applicationService.findAllWithCollectionContaining("plugins", plugin);
-        Integer pluginId = plugin.getId();
-        for (Application app : apps) {
-            List<Plugin> plugins = app.getPlugins();
-            if (plugins != null && plugins.contains(plugin)) {
-                String msg = String.format(
-                    "Remove plugin (id=%s) from application (id=%s)",
-                    pluginId, app.getId()
-                );
-                LOG.debug(msg);
-                plugins.remove(plugin);
-                // TODO will this use the the PreAuthorize annotations of AbstractCrudService wrt WRITE on the app?
-                applicationService.saveOrUpdate(app);
-            }
-        }
+        final String pluginId = plugin.getId();
+
         LOG.debug(String.format("Delete plugin (id=%s)", pluginId));
         // call overridden parent to actually delete the entity itself
         super.delete(plugin);

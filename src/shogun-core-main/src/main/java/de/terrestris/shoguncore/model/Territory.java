@@ -2,6 +2,7 @@ package de.terrestris.shoguncore.model;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.locationtech.jts.geom.MultiPolygon;
 
 
 /**

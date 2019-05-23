@@ -2,8 +2,8 @@ package de.terrestris.shoguncore.model.tree;
 
 import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import de.terrestris.shogun2.converter.TreeFolderIdResolver;
-import de.terrestris.shogun2.model.PersistentObject;
+import de.terrestris.shoguncore.converter.TreeFolderIdResolver;
+import de.terrestris.shoguncore.model.PersistentObject;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 

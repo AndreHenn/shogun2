@@ -7,8 +7,6 @@ import de.terrestris.shoguncore.util.interceptor.WmsResponseInterceptorInterface
 import de.terrestris.shoguncore.util.model.Response;
 import org.apache.logging.log4j.Logger;
 import org.deegree.commons.xml.CommonNamespaces;
-import org.hibernate.criterion.LogicalExpression;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpHeaders;
@@ -129,12 +127,15 @@ public class WmsResponseInterceptor implements WmsResponseInterceptorInterface {
         if (endpoint == null) {
             return response;
         }
+        /*
         LogicalExpression where = Restrictions.and(
             Restrictions.eq("requestableByPath", true),
             Restrictions.eq("customRequestPath", endpoint)
-        );
-        List<ImageWmsLayerDataSource> sources = this.layerDataSourceDao.findByCriteria(where);
+        );*/
+        List<ImageWmsLayerDataSource> sources = null;//this.layerDataSourceDao.findByCriteria(where);
         List<String> layerNames = sources.parallelStream().map(ImageWmsLayerDataSource::getLayerNames).collect(Collectors.toList());
+
+
 
         byte[] body = response.getBody();
         try {

@@ -1,11 +1,12 @@
 package de.terrestris.shoguncore.model.layer;
 
+import de.terrestris.shoguncore.model.PersistentObject;
+import de.terrestris.shoguncore.model.layer.source.LayerDataSource;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-import de.terrestris.shoguncore.model.PersistentObject;
-import de.terrestris.shoguncore.model.layer.appearance.LayerAppearance;
-import de.terrestris.shoguncore.model.layer.source.LayerDataSource;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Representation of a layer which consists a corresponding data source
@@ -37,10 +38,47 @@ public class Layer extends PersistentObject {
      */
     private LayerDataSource source;
 
+
     /**
      *
      */
-    private LayerAppearance appearance;
+    private String attribution;
+
+    /**
+     *
+     */
+    private Boolean hoverable;
+
+    /**
+     *
+     */
+    private String hoverTemplate;
+
+    /**
+     *
+     */
+    private Map<String, Object> properties = new HashMap<>();
+
+
+    /**
+     *
+     */
+    private Double maxResolution;
+
+    /**
+     *
+     */
+    private Double minResolution;
+
+    /**
+     *
+     */
+    private Double opacity;
+
+    /**
+     *
+     */
+    private Boolean visible;
 
     /**
      *
@@ -59,14 +97,11 @@ public class Layer extends PersistentObject {
 
     /**
      * @param name       Layer name
-     * @param source
-     * @param appearance
      */
-    public Layer(String name, LayerDataSource source, LayerAppearance appearance) {
+    public Layer(String name, LayerDataSource source) {
         super();
         this.name = name;
         this.source = source;
-        this.appearance = appearance;
     }
 
     /**
@@ -113,20 +148,6 @@ public class Layer extends PersistentObject {
     }
 
     /**
-     * @return the appearance
-     */
-    public LayerAppearance getAppearance() {
-        return appearance;
-    }
-
-    /**
-     * @param appearance the appearance to set
-     */
-    public void setAppearance(LayerAppearance appearance) {
-        this.appearance = appearance;
-    }
-
-    /**
      * @see java.lang.Object#hashCode()
      * <p>
      * According to
@@ -142,7 +163,6 @@ public class Layer extends PersistentObject {
             append(getName()).
             append(getDescription()).
             append(getSource()).
-            append(getAppearance()).
             toHashCode();
     }
 
@@ -165,7 +185,6 @@ public class Layer extends PersistentObject {
             append(getName(), other.getName()).
             append(getDescription(), other.getDescription()).
             append(getSource(), other.getSource()).
-            append(getAppearance(), other.getAppearance()).
             isEquals();
     }
 

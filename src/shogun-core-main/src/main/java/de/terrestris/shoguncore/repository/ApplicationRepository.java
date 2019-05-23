@@ -1,6 +1,6 @@
-package de.terrestris.shogun2.repository;
+package de.terrestris.shoguncore.repository;
 
-import de.terrestris.shogun2.model.Application;
+import de.terrestris.shoguncore.model.Application;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 public interface ApplicationRepository extends MongoRepository<Application, String> {

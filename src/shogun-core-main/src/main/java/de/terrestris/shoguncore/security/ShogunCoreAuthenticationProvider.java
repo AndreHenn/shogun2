@@ -1,9 +1,9 @@
 package de.terrestris.shoguncore.security;
 
-import de.terrestris.shoguncore.dao.UserDao;
 import de.terrestris.shoguncore.model.Role;
 import de.terrestris.shoguncore.model.User;
 import de.terrestris.shoguncore.model.UserGroup;
+import de.terrestris.shoguncore.repository.UserRepository;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +35,7 @@ public class ShogunCoreAuthenticationProvider implements AuthenticationProvider 
     private static final Logger LOG = getLogger(ShogunCoreAuthenticationProvider.class);
 
     @Autowired
-    private UserDao<User> userDao;
+    private UserRepository userRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -60,7 +60,7 @@ public class ShogunCoreAuthenticationProvider implements AuthenticationProvider 
 
         LOG.debug("Trying to authenticate User '" + accountName + "'");
 
-        User user = userDao.findByAccountName(accountName);
+        User user = userRepository.findByAccountName(accountName);
 
         // prepare set of authorities
         Set<GrantedAuthority> grantedAuthorities = new HashSet<GrantedAuthority>();

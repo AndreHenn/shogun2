@@ -51,7 +51,7 @@ public class WpsProcessExecuteControllerTest {
         expectedResult.add(resultMsg);
 
         Mockito.when(wpsProcessExecuteService.preCheckDelete(
-            Matchers.any(Integer.class))
+            Matchers.any(String.class))
         ).thenReturn(expectedResult);
 
         String PRECHECKDELETE_ENDPOINT = "/wpsprocessexecutes/preCheckDelete.action";
@@ -68,7 +68,7 @@ public class WpsProcessExecuteControllerTest {
             objectMapper.writeValueAsString(ResultSet.success(expectedResult)), content);
 
         Mockito.verify(wpsProcessExecuteService, Mockito.times(1)).
-            preCheckDelete(Matchers.any(Integer.class));
+            preCheckDelete(Matchers.any(String.class));
         Mockito.verifyNoMoreInteractions(wpsProcessExecuteService);
     }
 }

@@ -237,7 +237,7 @@ public class UserService<E extends User, D extends UserDao<E>> extends
         // The SecurityContextHolder holds a static copy of the user from
         // the moment he logged in. So we need to get the current instance from
         // dao.
-        Integer id = loggedInUser.getId();
+        final String id = loggedInUser.getId();
 
         return dao.findById(id);
     }
@@ -248,7 +248,7 @@ public class UserService<E extends User, D extends UserDao<E>> extends
      */
     @PostFilter("hasRole(@configHolder.getSuperAdminRoleName()) or hasPermission(filterObject, 'READ')")
     @Transactional(readOnly = true)
-    public Set<UserGroup> getGroupsOfUser(Integer userId) throws Exception {
+    public Set<UserGroup> getGroupsOfUser(String userId) throws Exception {
 
         Set<UserGroup> userGroupsSet = new HashSet<UserGroup>();
         E user = this.findById(userId);

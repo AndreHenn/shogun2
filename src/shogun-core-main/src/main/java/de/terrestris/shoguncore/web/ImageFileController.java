@@ -60,7 +60,7 @@ public class ImageFileController<E extends ImageFile, D extends ImageFileDao<E>,
      *
      */
     @RequestMapping(value = "/getThumbnail.action", method = RequestMethod.GET)
-    public ResponseEntity<?> getThumbnail(@RequestParam Integer id) {
+    public ResponseEntity<?> getThumbnail(@RequestParam String id) {
 
         final HttpHeaders responseHeaders = new HttpHeaders();
         Map<String, Object> responseMap;

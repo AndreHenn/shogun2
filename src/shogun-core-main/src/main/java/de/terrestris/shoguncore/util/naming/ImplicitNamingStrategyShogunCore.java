@@ -1,12 +1,15 @@
 package de.terrestris.shoguncore.util.naming;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Convert to plural form. Should only be used if class names are in singular
  * form.
  *
  * @author Nils Bühner
  */
-public class ImplicitNamingStrategyShogun2 {
+public class ImplicitNamingStrategyShogunCore {
 
     private static final long serialVersionUID = 1L;
 

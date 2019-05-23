@@ -66,7 +66,7 @@ public abstract class PersistentObjectIdResolver<E extends PersistentObject, D e
                 // requests to the database will only be queried if any properties
                 // of the entity will (later) be accessed (which may already
                 // the case when jackson is doing some magic)
-                return service.loadById(id);
+                return null;
             } else {
                 throw new Exception("ID is not of type Integer.");
             }

@@ -81,7 +81,7 @@ public class WpsProcessExecuteService<E extends WpsProcessExecute, D extends Wps
      */
     @PreAuthorize("hasRole(@configHolder.getSuperAdminRoleName()) or hasPermission(#wpsId, 'de.terrestris.shoguncore.model.wps.WpsProcessExecute', 'DELETE')")
     @Transactional(readOnly = true)
-    public List<String> preCheckDelete(Integer wpsId) {
+    public List<String> preCheckDelete(String wpsId) {
         List<String> result = new ArrayList<>();
 
         E wpsProcessExecute = this.dao.findById(wpsId);

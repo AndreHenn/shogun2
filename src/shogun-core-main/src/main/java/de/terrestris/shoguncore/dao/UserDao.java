@@ -1,11 +1,15 @@
 package de.terrestris.shoguncore.dao;
 
-import org.springframework.stereotype.Repository;
-
 import de.terrestris.shoguncore.model.User;
+import de.terrestris.shoguncore.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 @Repository("userDao")
 public class UserDao<E extends User> extends PersonDao<E> {
+
+    @Autowired
+    private UserRepository userRepository;
 
     /**
      * Public default constructor for this DAO.
@@ -29,7 +33,11 @@ public class UserDao<E extends User> extends PersonDao<E> {
      * @return
      */
     public E findByAccountName(String accountName) {
-return null;
+        if (userRepository != null) {
+            E user = (E) userRepository.findByAccountName(accountName);
+            return user;
+        }
+        return null;
     }
 
     /**

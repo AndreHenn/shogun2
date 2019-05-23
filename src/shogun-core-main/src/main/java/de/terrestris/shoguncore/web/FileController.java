@@ -92,7 +92,7 @@ public class FileController<E extends File, D extends FileDao<E>, S extends File
      *
      */
     @RequestMapping(value = "/get.action", method = RequestMethod.GET)
-    public ResponseEntity<?> getFile(@RequestParam Integer id) {
+    public ResponseEntity<?> getFile(@RequestParam String id) {
 
         final HttpHeaders responseHeaders = new HttpHeaders();
         Map<String, Object> responseMap = new HashMap<String, Object>();

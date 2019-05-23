@@ -1,13 +1,11 @@
 package de.terrestris.shoguncore.model.token;
 
-import java.util.UUID;
-
+import de.terrestris.shoguncore.model.PersistentObject;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.joda.time.DateTime;
-import org.joda.time.ReadableDateTime;
 
-import de.terrestris.shoguncore.model.PersistentObject;
+import java.util.Date;
+import java.util.UUID;
 
 /**
  * Abstract base class for all tokens. A UUID token will be generated on
@@ -31,7 +29,7 @@ public abstract class Token extends PersistentObject {
     /**
      * The expiration date of the token. Will be set
      */
-    private final ReadableDateTime expirationDate;
+    private final Date expirationDate;
 
     /**
      * Constructor
@@ -46,7 +44,7 @@ public abstract class Token extends PersistentObject {
         this.token = UUID.randomUUID().toString();
 
         // set the expiration date
-        this.expirationDate = ((DateTime) getCreated()).plusMinutes(expirationInMinutes);
+        this.expirationDate = null;//((Date) getCreated()).plusMinutes(expirationInMinutes);
     }
 
     /**
@@ -59,10 +57,10 @@ public abstract class Token extends PersistentObject {
      */
     public boolean expiresWithin(int minutes) {
 
-        DateTime dateToCheck = DateTime.now().plusMinutes(minutes);
-        boolean isExpired = dateToCheck.isAfter(this.expirationDate);
+        Date dateToCheck = new Date();
+//        boolean isExpired = dateToCheck.isAfter(this.expirationDate);
 
-        return isExpired;
+        return false;
     }
 
     /**
@@ -75,7 +73,7 @@ public abstract class Token extends PersistentObject {
     /**
      * @return the expirationDate
      */
-    public ReadableDateTime getExpirationDate() {
+    public Date getExpirationDate() {
         return expirationDate;
     }
 

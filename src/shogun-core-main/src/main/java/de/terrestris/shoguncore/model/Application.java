@@ -1,17 +1,12 @@
 package de.terrestris.shoguncore.model;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import de.terrestris.shoguncore.converter.PluginIdResolver;
 import de.terrestris.shoguncore.model.module.CompositeModule;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.joda.time.ReadableDateTime;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
 import java.util.Locale;
 
 /**
@@ -20,6 +15,7 @@ import java.util.Locale;
  *
  * @author Nils Bühner
  */
+@Document(collection="applications")
 public class Application extends PersistentObject {
 
     private static final long serialVersionUID = 1L;
@@ -65,13 +61,13 @@ public class Application extends PersistentObject {
      * The plugins available in this application
      */
     // The List of layers will be serialized (JSON) as an array of ID values
-    @JsonIdentityInfo(
+   /* @JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "id",
         resolver = PluginIdResolver.class
     )
     @JsonIdentityReference(alwaysAsId = true)
-    private List<Plugin> plugins = new ArrayList<>();
+    private List<Plugin> plugins = new ArrayList<>();*/
 
     /**
      * Explicitly adding the default constructor as this is important, e.g. for
@@ -91,7 +87,7 @@ public class Application extends PersistentObject {
      */
     @Override
     @JsonIgnore(false)
-    public ReadableDateTime getCreated() {
+    public Date getCreated() {
         return super.getCreated();
     }
 
@@ -101,7 +97,7 @@ public class Application extends PersistentObject {
      */
     @Override
     @JsonIgnore(false)
-    public ReadableDateTime getModified() {
+    public Date getModified() {
         return super.getModified();
     }
 
@@ -169,17 +165,19 @@ public class Application extends PersistentObject {
 
     /**
      * @return the plugins
-     */
+
     public List<Plugin> getPlugins() {
         return plugins;
     }
+     */
 
     /**
      * @param plugins the plugins to set
-     */
+
     public void setPlugins(List<Plugin> plugins) {
         this.plugins = plugins;
     }
+     */
 
     /**
      * @see java.lang.Object#hashCode()

@@ -65,7 +65,7 @@ public class WpsProcessExecuteController<E extends WpsProcessExecute, D extends 
      * @return
      */
     @RequestMapping(value = "preCheckDelete.action", method = RequestMethod.POST)
-    public ResponseEntity<?> preCheckDelete(@RequestParam("wpsProcessId") Integer wpsProcessId) {
+    public ResponseEntity<?> preCheckDelete(@RequestParam("wpsProcessId") String wpsProcessId) {
         List<String> result = null;
         try {
             result = service.preCheckDelete(wpsProcessId);

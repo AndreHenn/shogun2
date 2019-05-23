@@ -1,11 +1,11 @@
 package de.terrestris.shoguncore.model;
 
-import java.util.Locale;
-
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.joda.time.LocalDate;
+
+import java.util.Date;
+import java.util.Locale;
 
 
 public class Person extends PersistentObject {
@@ -18,7 +18,7 @@ public class Person extends PersistentObject {
 
     private String email;
 
-    private LocalDate birthday;
+    private Date birthday;
 
     private Locale language;
 
@@ -60,11 +60,11 @@ public class Person extends PersistentObject {
         this.email = email;
     }
 
-    public LocalDate getBirthday() {
+    public Date getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(LocalDate birthday) {
+    public void setBirthday(Date birthday) {
         this.birthday = birthday;
     }
 

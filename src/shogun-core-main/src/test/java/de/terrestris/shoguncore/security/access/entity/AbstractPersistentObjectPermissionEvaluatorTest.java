@@ -52,7 +52,7 @@ public abstract class AbstractPersistentObjectPermissionEvaluatorTest<E extends 
         // if no permissions are set
         for (Permission permission : allPermissions) {
             final User user = new User("First name", "Last Name", "accountName");
-            IdHelper.setIdOnPersistentObject(user, 42);
+            IdHelper.setIdOnPersistentObject(user, ""+42);
 
             // call method to test
             boolean permissionResult = persistentObjectPermissionEvaluator.hasPermission(user, entityToCheck, permission);
@@ -70,15 +70,15 @@ public abstract class AbstractPersistentObjectPermissionEvaluatorTest<E extends 
     public void hasPermission_shouldGrantPermissionOnSecuredObjectWithCorrectUserPermission() throws NoSuchFieldException, IllegalAccessException {
         // prepare a user that gets permissions
         final User user = new User("First name", "Last Name", "accountName");
-        IdHelper.setIdOnPersistentObject(user, 42);
+        IdHelper.setIdOnPersistentObject(user, ""+42);
 
         // prepare permission collection/map
-        Map<User, PermissionCollection> userPermissionsMap = new HashMap<User, PermissionCollection>();
+        Map<String, PermissionCollection> userPermissionsMap = new HashMap<>();
 
         // UPDATE as example permission for the user
         Permission updatePermission = Permission.UPDATE;
         PermissionCollection permissionCollection = buildPermissionCollection(updatePermission);
-        userPermissionsMap.put(user, permissionCollection);
+        userPermissionsMap.put("peter", permissionCollection);
         entityToCheck.setUserPermissions(userPermissionsMap);
 
         // call method to test
@@ -95,19 +95,19 @@ public abstract class AbstractPersistentObjectPermissionEvaluatorTest<E extends 
     public void hasPermission_shouldGrantPermissionOnSecuredObjectWithCorrectGroupPermission() throws NoSuchFieldException, IllegalAccessException {
         // prepare a user
         final User user = new User("First name", "Last Name", "accountName");
-        IdHelper.setIdOnPersistentObject(user, 42);
+        IdHelper.setIdOnPersistentObject(user, ""+42);
 
         // add user to a group
         UserGroup group = new UserGroup();
         group.getMembers().add(user);
 
         // prepare permission collection/map for the group
-        Map<UserGroup, PermissionCollection> userGroupPermissionsMap = new HashMap<UserGroup, PermissionCollection>();
+        Map<String, PermissionCollection> userGroupPermissionsMap = new HashMap<String, PermissionCollection>();
 
         // UPDATE as example permission for the group
         Permission updatePermission = Permission.UPDATE;
         PermissionCollection permissionCollection = buildPermissionCollection(updatePermission);
-        userGroupPermissionsMap.put(group, permissionCollection);
+        userGroupPermissionsMap.put("otto", permissionCollection);
         entityToCheck.setGroupPermissions(userGroupPermissionsMap);
 
         // call method to test
@@ -125,15 +125,15 @@ public abstract class AbstractPersistentObjectPermissionEvaluatorTest<E extends 
 
         // prepare a user that gets permissions
         final User user = new User("First name", "Last Name", "accountName");
-        IdHelper.setIdOnPersistentObject(user, 42);
+        IdHelper.setIdOnPersistentObject(user, ""+42);
 
         // prepare permission collection/map
-        Map<User, PermissionCollection> userPermissionsMap = new HashMap<User, PermissionCollection>();
+        Map<String, PermissionCollection> userPermissionsMap = new HashMap<>();
 
         // grant ADMIN permission to user
         Permission adminPermission = Permission.ADMIN;
         PermissionCollection permissionCollection = buildPermissionCollection(adminPermission);
-        userPermissionsMap.put(user, permissionCollection);
+        userPermissionsMap.put("peter", permissionCollection);
         entityToCheck.setUserPermissions(userPermissionsMap);
 
         Set<Permission> allPermissions = new HashSet<Permission>(Arrays.asList(Permission.values()));
@@ -162,19 +162,19 @@ public abstract class AbstractPersistentObjectPermissionEvaluatorTest<E extends 
 
         // prepare a user
         final User user = new User("First name", "Last Name", "accountName");
-        IdHelper.setIdOnPersistentObject(user, 42);
+        IdHelper.setIdOnPersistentObject(user, ""+42);
 
         // add user to group
         UserGroup group = new UserGroup();
         group.getMembers().add(user);
 
         // prepare permission collection/map for the group
-        Map<UserGroup, PermissionCollection> groupPermissionsMap = new HashMap<UserGroup, PermissionCollection>();
+        Map<String, PermissionCollection> groupPermissionsMap = new HashMap<String, PermissionCollection>();
 
         // grant ADMIN permission to group
         Permission adminPermission = Permission.ADMIN;
         PermissionCollection permissionCollection = buildPermissionCollection(adminPermission);
-        groupPermissionsMap.put(group, permissionCollection);
+        groupPermissionsMap.put("dsf", permissionCollection);
         entityToCheck.setGroupPermissions(groupPermissionsMap);
 
         Set<Permission> allPermissions = new HashSet<Permission>(Arrays.asList(Permission.values()));

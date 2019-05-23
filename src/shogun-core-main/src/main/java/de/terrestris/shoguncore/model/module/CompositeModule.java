@@ -8,7 +8,6 @@ import java.util.List;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import de.terrestris.shoguncore.model.layout.Layout;
 
 /**
  * This class represents a (simple) composite {@link Module}, i.e. a module
@@ -24,13 +23,6 @@ public class CompositeModule extends Module {
     private static final long serialVersionUID = 1L;
 
     /**
-     * The {@link Layout} of this {@link CompositeModule}, that contains
-     * property hints/musts for the child modules of this
-     * {@link CompositeModule}.
-     */
-    private Layout layout;
-
-    /**
      *
      */
     private List<Module> subModules = new ArrayList<Module>();
@@ -40,20 +32,6 @@ public class CompositeModule extends Module {
      * Hibernate: http://goo.gl/3Cr1pw
      */
     public CompositeModule() {
-    }
-
-    /**
-     * @return the layout
-     */
-    public Layout getLayout() {
-        return layout;
-    }
-
-    /**
-     * @param layout the layout to set
-     */
-    public void setLayout(Layout layout) {
-        this.layout = layout;
     }
 
     /**
@@ -97,7 +75,6 @@ public class CompositeModule extends Module {
         // two randomly chosen prime numbers
         return new HashCodeBuilder(17, 19)
             .appendSuper(super.hashCode())
-            .append(getLayout())
             .append(getSubModules())
             .toHashCode();
     }
@@ -118,7 +95,6 @@ public class CompositeModule extends Module {
 
         return new EqualsBuilder()
             .appendSuper(super.equals(other))
-            .append(getLayout(), other.getLayout())
             .append(getSubModules(), other.getSubModules())
             .isEquals();
     }

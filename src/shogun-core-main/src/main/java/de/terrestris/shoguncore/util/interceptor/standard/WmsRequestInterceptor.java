@@ -4,15 +4,10 @@ import de.terrestris.shoguncore.dao.LayerDataSourceDao;
 import de.terrestris.shoguncore.model.layer.source.ImageWmsLayerDataSource;
 import de.terrestris.shoguncore.util.interceptor.MutableHttpServletRequest;
 import de.terrestris.shoguncore.util.interceptor.WmsRequestInterceptorInterface;
-import org.hibernate.criterion.LogicalExpression;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import javax.transaction.Transactional;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * This class demonstrates how to implement the WmsRequestInterceptorInterface.
@@ -35,6 +30,7 @@ public class WmsRequestInterceptor implements WmsRequestInterceptorInterface {
         String layers = request.getParameterIgnoreCase(name);
         String[] fromRequest = layers.split(",");
 
+        /*
         LogicalExpression where = Restrictions.and(
             Restrictions.eq("requestableByPath", true),
             Restrictions.eq("customRequestPath", endpoint)
@@ -43,6 +39,7 @@ public class WmsRequestInterceptor implements WmsRequestInterceptorInterface {
         List<String> layersInPath = sources.parallelStream().map(ImageWmsLayerDataSource::getLayerNames).collect(Collectors.toList());
         List<String> resultLayers = Arrays.stream(fromRequest).filter(layersInPath::contains).collect(Collectors.toList());
         request.setParameter(name, resultLayers.stream().reduce("", (acc, val) -> acc.isEmpty() ? val : acc + "," + val));
+        */
     }
 
     @Override

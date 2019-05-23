@@ -1,9 +1,9 @@
 package de.terrestris.shoguncore.model.security;
 
+import de.terrestris.shoguncore.model.PersistentObject;
+
 import java.util.HashSet;
 import java.util.Set;
-
-import de.terrestris.shogun2.model.PersistentObject;
 
 /**
  * @author Nils Bühner

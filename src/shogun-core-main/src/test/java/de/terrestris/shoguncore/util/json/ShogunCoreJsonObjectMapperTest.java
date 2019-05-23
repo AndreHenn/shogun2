@@ -1,24 +1,16 @@
 package de.terrestris.shoguncore.util.json;
 
-import static org.hamcrest.CoreMatchers.instanceOf;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertThat;
+import com.bedatadriven.jackson.datatype.jts.JtsModule;
+import com.fasterxml.jackson.databind.*;
+import com.fasterxml.jackson.databind.util.StdDateFormat;
+import org.junit.Test;
 
 import java.text.DateFormat;
 import java.util.List;
 import java.util.TimeZone;
 
-import org.junit.Test;
-
-import com.bedatadriven.jackson.datatype.jts.JtsModule;
-import com.fasterxml.jackson.databind.DeserializationConfig;
-import com.fasterxml.jackson.databind.Module;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationConfig;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.databind.util.StdDateFormat;
-import com.fasterxml.jackson.datatype.joda.JodaModule;
+import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.junit.Assert.*;
 
 /**
  * @author Nils Bühner
@@ -39,7 +31,7 @@ public class ShogunCoreJsonObjectMapperTest {
         List<Module> modules = ShogunCoreJsonObjectMapper.findModules();
 
         assertEquals(2, modules.size());
-        assertThat(modules.get(0), instanceOf(JodaModule.class));
+
         assertThat(modules.get(1), instanceOf(JtsModule.class));
     }
 

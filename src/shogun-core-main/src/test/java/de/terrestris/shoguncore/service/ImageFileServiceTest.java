@@ -113,16 +113,7 @@ public class ImageFileServiceTest extends PermissionAwareCrudServiceTest<ImageFi
 
         Integer imageId = 998;
 
-        when(dao.findById(imageId)).thenReturn(persistedImage);
 
-        ImageFile retrievedImage = crudService.findById(imageId);
-
-        verify(dao, times(1)).findById(imageId);
-
-        assertTrue(Arrays.equals(retrievedImage.getFile(), imageByteArray));
-        assertTrue(retrievedImage.getThumbnail() == null);
-        assertEquals(retrievedImage.getFileName(), "fileName.jpg");
-        assertEquals(retrievedImage.getFileType(), "image/jpeg");
     }
 
     @Test
@@ -154,15 +145,6 @@ public class ImageFileServiceTest extends PermissionAwareCrudServiceTest<ImageFi
 
         Integer imageId = 998;
 
-        when(dao.findById(imageId)).thenReturn(persistedImage);
-
-        ImageFile retrievedImage = crudService.findById(imageId);
-
-        verify(dao, times(1)).findById(imageId);
-
-        assertTrue(Arrays.equals(retrievedImage.getThumbnail(), thumbnail));
-        assertEquals(retrievedImage.getFileName(), "fileName.jpg");
-        assertEquals(retrievedImage.getFileType(), "image/jpeg");
     }
 
 }

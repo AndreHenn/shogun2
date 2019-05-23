@@ -46,7 +46,7 @@ public class ImageFileControllerTest {
 
     @Test
     public void getThumbnailReturnsErrorMapIfIdIsNull() throws Exception {
-        Mockito.when(imageFileService.findById(Matchers.any(int.class))).thenReturn(null);
+        Mockito.when(imageFileService.findById(Matchers.any(String.class))).thenReturn(null);
 
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get(GET_THUMBNAIL_ENDPOINT)
             .param("id", ""))
@@ -64,7 +64,7 @@ public class ImageFileControllerTest {
         imgFile.setThumbnail(new byte[] {0, 8, 15});
         imgFile.setFileType("image/png");
         imgFile.setFileName("testImg");
-        Mockito.when(imageFileService.findById(Matchers.any(int.class))).thenReturn(imgFile);
+        Mockito.when(imageFileService.findById(Matchers.any(String.class))).thenReturn(imgFile);
 
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get(GET_THUMBNAIL_ENDPOINT)
             .param("id", "121"))

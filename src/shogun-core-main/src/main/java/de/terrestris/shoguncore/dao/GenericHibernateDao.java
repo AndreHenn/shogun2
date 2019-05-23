@@ -1,19 +1,22 @@
 package de.terrestris.shoguncore.dao;
 
+import de.terrestris.shoguncore.model.Application;
 import de.terrestris.shoguncore.model.PersistentObject;
 import de.terrestris.shoguncore.model.User;
 import de.terrestris.shoguncore.model.UserGroup;
 import de.terrestris.shoguncore.model.security.PermissionCollection;
 import de.terrestris.shoguncore.paging.PagingResult;
+import de.terrestris.shoguncore.repository.ApplicationRepository;
+import de.terrestris.shoguncore.repository.UserRepository;
 import de.terrestris.shoguncore.util.entity.EntityUtil;
 import org.apache.logging.log4j.Logger;
-import org.joda.time.DateTime;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.stereotype.Repository;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Map;
 
 import static org.apache.logging.log4j.LogManager.getLogger;
 
@@ -24,6 +27,7 @@ import static org.apache.logging.log4j.LogManager.getLogger;
  * @author Nils Bühner
  */
 @Repository("genericDao")
+@EnableMongoRepositories
 public class GenericHibernateDao<E extends PersistentObject, ID extends Serializable> {
 
     /**
@@ -36,8 +40,11 @@ public class GenericHibernateDao<E extends PersistentObject, ID extends Serializ
      */
     private final Class<E> entityClass;
 
-    @Value("${hibernate.cache.use_query_cache}")
-    private Boolean useQueryCache;
+    @Autowired
+    private ApplicationRepository applicationRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     /**
      * Default constructor
@@ -59,42 +66,30 @@ public class GenericHibernateDao<E extends PersistentObject, ID extends Serializ
     /**
      * Return the real object from the database. Returns null if the object does
      * not exist.
-     *
-     * @param id
-     * @return The object from the database or null if it does not exist
-     * @see http://www.mkyong.com/hibernate/different-between-session-get-and-session-load/
      */
-    public E findById(ID id) {
-        LOG.trace("Finding " + entityClass.getSimpleName() + " with ID " + id);
+    public E findById(String id) {
+
+        LOG.trace("Not found !!!");
         return null;
     }
 
-
-
-    /**
-     * Return a proxy of the object (without hitting the database). This should
-     * only be used if it is assumed that the object really exists and where
-     * non-existence would be an actual error.
-     *
-     * @param id
-     * @return
-     * @see http://www.mkyong.com/hibernate/different-between-session-get-and-session-load/
-     */
-    public E loadById(ID id) {
-        LOG.trace("Loading " + entityClass.getSimpleName() + " with ID " + id);
-        return null;
-    }
 
     /**
      * Returns all Entities by calling findByCriteria(), i.e. without arguments.
      *
      * @return All entities
      * @see GenericHibernateDao#findByCriteria(Criterion...)
-     */
+
     public List<E> findAll() {
         LOG.trace("Finding all instances of " + entityClass.getSimpleName());
+
+        MongoRepository repository = getAssignedRepository(errrr);
+        if (repository != null) {
+            repository.save(e);
+        }
         return null;
     }
+     */
 
     /**
      * Saves or updates the passed entity.
@@ -102,7 +97,7 @@ public class GenericHibernateDao<E extends PersistentObject, ID extends Serializ
      * @param e The entity to save or update in the database.
      */
     public void saveOrUpdate(E e) {
-        final Integer id = e.getId();
+        final String id = e.getId();
         final boolean hasId = id != null;
         String createOrUpdatePrefix = hasId ? "Updating" : "Creating a new";
         String idSuffix = hasId ? " with ID " + id : "";
@@ -110,8 +105,25 @@ public class GenericHibernateDao<E extends PersistentObject, ID extends Serializ
         LOG.trace(createOrUpdatePrefix + " instance of " + entityClass.getSimpleName()
             + idSuffix);
 
-        e.setModified(DateTime.now());
-        //getSession().saveOrUpdate(e);
+        MongoRepository repository = getAssignedRepository(e);
+        if (repository != null) {
+            repository.save(e);
+        }
+    }
+
+    /**
+     *
+     * @param e
+     * @return
+     */
+    private MongoRepository getAssignedRepository(E e) {
+        if (e instanceof Application) {
+            return applicationRepository;
+        }
+        if (e instanceof User) {
+            return userRepository;
+        }
+        return null;
     }
 
     /**
@@ -121,7 +133,11 @@ public class GenericHibernateDao<E extends PersistentObject, ID extends Serializ
      */
     public void delete(E e) {
         LOG.trace("Deleting " + entityClass.getSimpleName() + " with ID " + e.getId());
-       // getSession().delete(e);
+
+        MongoRepository repository = getAssignedRepository(e);
+        if (repository != null) {
+            repository.delete(e);
+        }
     }
 
     /**
@@ -180,13 +196,13 @@ public class GenericHibernateDao<E extends PersistentObject, ID extends Serializ
      *
      * @param restrictFieldNames
      * @param criterion
-     * @return
-     * @throws HibernateException
+     * @return ds
      */
     @SuppressWarnings("unchecked")
     public List<E> findByCriteriaRestricted(List<String> restrictFieldNames) {
         LOG.trace("Finding instances of " + entityClass.getSimpleName()
             + " based on  criteria");
+
 
 
 
@@ -199,7 +215,6 @@ public class GenericHibernateDao<E extends PersistentObject, ID extends Serializ
      *
      * @param criterion A variable number of hibernate criterions
      * @return Entity matching the passed hibernate criterions
-     * @throws HibernateException if there is more than one matching result
      */
     @SuppressWarnings("unchecked")
     public E findByUniqueCriteria() {

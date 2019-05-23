@@ -32,7 +32,7 @@ public class UserPermissionEvaluatorTest extends
 
         // prepare a user that
         final User user = new User("First name", "Last Name", "accountName");
-        IdHelper.setIdOnPersistentObject(user, 42);
+        IdHelper.setIdOnPersistentObject(user, ""+42);
 
         // we do not add any permissions to the user, but expect that he is allowed to READ himself
         // call method to test
@@ -47,7 +47,7 @@ public class UserPermissionEvaluatorTest extends
 
         // prepare a user that
         final User user = new User("First name", "Last Name", "accountName");
-        IdHelper.setIdOnPersistentObject(user, 42);
+        IdHelper.setIdOnPersistentObject(user, ""+42);
 
         Set<Permission> permissions = new HashSet<Permission>(Arrays.asList(Permission.values()));
         permissions.remove(Permission.READ); // everything but READ

@@ -12,7 +12,7 @@ import java.io.Serializable;
  *
  * @author Nils Bühner
  */
-public class PhysicalNamingStrategyShogun2 implements Serializable {
+public class PhysicalNamingStrategyShogunCore implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

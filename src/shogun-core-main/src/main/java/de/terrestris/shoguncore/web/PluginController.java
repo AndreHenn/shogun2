@@ -63,7 +63,7 @@ public class PluginController<E extends Plugin, D extends PluginDao<E>, S extend
      * @return
      */
     @RequestMapping(value = "preCheckDelete.action", method = RequestMethod.POST)
-    public ResponseEntity<?> preCheckDelete(@RequestParam("pluginId") Integer pluginId) {
+    public ResponseEntity<?> preCheckDelete(@RequestParam("pluginId") String pluginId) {
         List<String> result = null;
         try {
             result = service.preCheckDelete(pluginId);

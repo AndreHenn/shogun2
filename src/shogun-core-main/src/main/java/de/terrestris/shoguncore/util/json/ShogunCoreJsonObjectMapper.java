@@ -1,12 +1,11 @@
 package de.terrestris.shoguncore.util.json;
 
-import java.util.TimeZone;
-
 import com.bedatadriven.jackson.datatype.jts.JtsModule;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.util.StdDateFormat;
-import com.fasterxml.jackson.datatype.joda.JodaModule;
+
+import java.util.TimeZone;
 
 /**
  * Customized JSON/Jackson ObjectMapper attending the needs of SHOGun-Core.
@@ -32,7 +31,7 @@ public class ShogunCoreJsonObjectMapper extends ObjectMapper {
 
         // register the joda module to support the joda time types, which are
         // used in shogun
-        this.registerModule(new JodaModule());
+    //    this.registerModule(new JodaModule());
 
         // register JTS geometry types
         this.registerModule(new JtsModule());

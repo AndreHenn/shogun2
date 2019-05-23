@@ -91,7 +91,7 @@ public class ShogunCorePermissionEvaluator implements PermissionEvaluator {
             }
 
             final PersistentObject persistentObject = (PersistentObject) targetDomainObject;
-            final Integer objectId = persistentObject.getId();
+            final String objectId = persistentObject.getId();
             final String simpleClassName = targetDomainObject.getClass().getSimpleName();
             final Permission permission = Permission.fromString((String) permissionObject);
 
@@ -166,7 +166,8 @@ public class ShogunCorePermissionEvaluator implements PermissionEvaluator {
         }
 
         // finally get the entity from the DB
-        PersistentObject entity = daoToUse.findById(targetId);
+        // TODO
+        PersistentObject entity = daoToUse.findById(targetId.toString());
 
         // call implementation based on entity
         return this.hasPermission(authentication, entity, permission);

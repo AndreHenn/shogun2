@@ -1,7 +1,7 @@
 package de.terrestris.shoguncore.model.layer.appearance;
 
-import de.terrestris.shogun2.model.PersistentObject;
-import de.terrestris.shogun2.model.layer.Layer;
+import de.terrestris.shoguncore.model.layer.Layer;
+import de.terrestris.shoguncore.model.PersistentObject;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 

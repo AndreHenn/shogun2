@@ -60,7 +60,7 @@ public class UserGroupRestController<E extends UserGroup, D extends UserGroupDao
      * @return
      */
     @RequestMapping(value = "/{groupId}/users", method = RequestMethod.GET)
-    public ResponseEntity<Set<User>> findUsersOfGroup(@PathVariable Integer groupId) {
+    public ResponseEntity<Set<User>> findUsersOfGroup(@PathVariable String groupId) {
 
         try {
             Set<User> groupUsersSet = this.service.getUsersOfGroup(groupId);

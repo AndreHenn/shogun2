@@ -16,7 +16,7 @@ public class IdHelper {
      * @throws IllegalAccessException
      */
     public static final void setIdOnPersistentObject(
-        PersistentObject persistentObject, Integer id)
+        PersistentObject persistentObject, String id)
         throws NoSuchFieldException, IllegalAccessException {
         // use reflection to get the inaccessible final field 'id'
         Field idField = PersistentObject.class.getDeclaredField("id");

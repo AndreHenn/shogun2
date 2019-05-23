@@ -222,7 +222,6 @@
         <bytebuddy.version>1.7.9</bytebuddy.version>
         <xmlapi.version>1.4.01</xmlapi.version>
         <cache.version>1.1.0</cache.version>
-        <deegree.version>3.4.6</deegree.version>
         <interceptor.version>1.2</interceptor.version>
 
         <downloadSources>true</downloadSources>
@@ -541,22 +540,6 @@
         <dependency>
             <groupId>org.powermock</groupId>
             <artifactId>powermock-api-mockito2</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-jcache</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-spatial</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>javax.cache</groupId>
-            <artifactId>cache-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.zaxxer</groupId>
-            <artifactId>HikariCP</artifactId>
         </dependency>
     </dependencies>
 

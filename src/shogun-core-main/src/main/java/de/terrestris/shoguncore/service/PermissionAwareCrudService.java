@@ -84,7 +84,7 @@ public class PermissionAwareCrudService<E extends PersistentObject, D extends Ge
         }
 
         // get the existing permission
-        PermissionCollection userPermissionCollection = entity.getUserPermissions().get(user);
+        PermissionCollection userPermissionCollection = entity.getUserPermissions().get(user.getId());
 
         // whether or not we have to persist the permission collection (which is only
         // the case if it is new or its size has changed)
@@ -97,7 +97,7 @@ public class PermissionAwareCrudService<E extends PersistentObject, D extends Ge
         if (userPermissionCollection == null) {
             // create a new user permission collection and attach it to the user
             userPermissionCollection = new PermissionCollection(permissionsSet);
-            entity.getUserPermissions().put(user, userPermissionCollection);
+            entity.getUserPermissions().put(user.getId(), userPermissionCollection);
             LOG.debug("Attached a new permission collection for a user: " + permissionsSet);
 
             // persist permission collection and the entity as a new permission
@@ -235,7 +235,7 @@ public class PermissionAwareCrudService<E extends PersistentObject, D extends Ge
             // create a new user permission collection and attach it to the user
             groupPermissionCollection = new PermissionCollection(permissionsSet);
 
-            entity.getGroupPermissions().put(userGroup, groupPermissionCollection);
+            entity.getGroupPermissions().put(userGroup.getId(), groupPermissionCollection);
             LOG.debug("Attached a new permission collection for a group: " + permissionsSet);
 
             // persist permission collection and the entity as a new permission

@@ -45,7 +45,7 @@ public class PersistentObjectPermissionEvaluator<E extends PersistentObject> {
         final String simpleClassName = entityClass.getSimpleName();
 
         // CHECK USER PERMISSIONS
-        final Map<User, PermissionCollection> userPermissionsMap = entity.getUserPermissions();
+        final Map<String, PermissionCollection> userPermissionsMap = entity.getUserPermissions();
 
         PermissionCollection userPermissionCol = extractUserPermissions(user, userPermissionsMap);
         final Set<Permission> userPermissions = userPermissionCol.getPermissions();
@@ -60,7 +60,7 @@ public class PersistentObjectPermissionEvaluator<E extends PersistentObject> {
         }
 
         // CHECK GROUP PERMISSIONS
-        final Map<UserGroup, PermissionCollection> groupPermissionsMap = entity.getGroupPermissions();
+        final Map<String, PermissionCollection> groupPermissionsMap = entity.getGroupPermissions();
 
         PermissionCollection groupPermissionsCol = extractGroupPermissions(user, groupPermissionsMap);
         final Set<Permission> groupPermissions = groupPermissionsCol.getPermissions();
@@ -83,7 +83,7 @@ public class PersistentObjectPermissionEvaluator<E extends PersistentObject> {
      * @param userPermissionsMap
      */
     protected PermissionCollection extractUserPermissions(User user,
-                                                          Map<User, PermissionCollection> userPermissionsMap) {
+                                                          Map<String, PermissionCollection> userPermissionsMap) {
 
         PermissionCollection permissionCollection = userPermissionsMap.get(user);
 
@@ -99,18 +99,23 @@ public class PersistentObjectPermissionEvaluator<E extends PersistentObject> {
      * @param groupPermissionsMap
      */
     protected PermissionCollection extractGroupPermissions(User user,
-                                                           Map<UserGroup, PermissionCollection> groupPermissionsMap) {
+                                                           Map<String, PermissionCollection> groupPermissionsMap) {
 
         Set<Permission> aggregatedGroupPermissions = new HashSet<Permission>();
 
-        Set<UserGroup> userGroupsWithPermissions = groupPermissionsMap.keySet();
+        Set<String> userGroupsWithPermissions = groupPermissionsMap.keySet();
 
-        for (UserGroup userGroup : userGroupsWithPermissions) {
+        for (String userGroup : userGroupsWithPermissions) {
+
+            /*
+
+            TODO
 
             if (userGroup.getMembers().contains(user)) {
                 Set<Permission> groupPermissions = groupPermissionsMap.get(userGroup).getPermissions();
                 aggregatedGroupPermissions.addAll(groupPermissions);
             }
+             */
 
         }
 

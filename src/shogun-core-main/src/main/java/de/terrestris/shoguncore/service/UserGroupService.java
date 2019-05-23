@@ -59,7 +59,7 @@ public class UserGroupService<E extends UserGroup, D extends UserGroupDao<E>>
      */
     @PostFilter("hasRole(@configHolder.getSuperAdminRoleName()) or hasPermission(filterObject, 'READ')")
     @Transactional(readOnly = true)
-    public Set<User> getUsersOfGroup(Integer groupId) throws Exception {
+    public Set<User> getUsersOfGroup(String groupId) throws Exception {
 
         Set<User> groupUsersSet = new HashSet<User>();
         UserGroup userGroup = this.findById(groupId);

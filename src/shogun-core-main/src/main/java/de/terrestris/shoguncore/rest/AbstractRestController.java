@@ -89,7 +89,7 @@ public abstract class AbstractRestController<E extends PersistentObject, D exten
      * @param id
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<E> findById(@PathVariable Integer id) {
+    public ResponseEntity<E> findById(@PathVariable String id) {
 
         try {
             E entity = this.service.findById(id);
@@ -122,7 +122,7 @@ public abstract class AbstractRestController<E extends PersistentObject, D exten
 
             // ID value MUST be null to assure that
             // saveOrUpdate will save and not update
-            final Integer id = entity.getId();
+            final String id = entity.getId();
             if (id != null) {
                 LOG.error(errorMessagePrefix + "ID value is set to " + id
                     + ", but MUST be null");
@@ -146,7 +146,7 @@ public abstract class AbstractRestController<E extends PersistentObject, D exten
      * @param id
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<E> update(@PathVariable int id, HttpServletRequest request) {
+    public ResponseEntity<E> update(@PathVariable String id, HttpServletRequest request) {
 
         String errorPrefix = "Error updating "
             + getEntityClass().getSimpleName() + " with ID " + id + ": ";
@@ -166,8 +166,8 @@ public abstract class AbstractRestController<E extends PersistentObject, D exten
             }
 
             // assure that the path variable id equals the payload id
-            final int payloadId = jsonObject.get("id").asInt();
-            if (payloadId != id) {
+            final String payloadId = jsonObject.get("id").asText();
+            if (!StringUtils.equalsIgnoreCase(payloadId, id)) {
                 LOG.error(errorPrefix + "Requested to update entity with ID "
                     + id + ", but payload ID is " + payloadId);
                 return new ResponseEntity<E>(HttpStatus.BAD_REQUEST);
@@ -205,7 +205,7 @@ public abstract class AbstractRestController<E extends PersistentObject, D exten
      * @param id
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<E> delete(@PathVariable int id) {
+    public ResponseEntity<E> delete(@PathVariable String id) {
 
         try {
             E entityToDelete = this.service.findById(id);

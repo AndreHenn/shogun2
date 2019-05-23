@@ -145,17 +145,6 @@ public class FileControllerTest {
         expectedFile.setFileName(fileName);
         expectedFile.setFileType(fileType);
 
-        // mock service behaviour
-        when(fileServiceMock.findById(fileId)).thenReturn(expectedFile);
-
-        // Perform and test the GET-Request
-        mockMvc.perform(get("/file/get.action").param("id", fileId.toString()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.parseMediaType(fileType)))
-            .andExpect(content().string(fileContent));
-
-        verify(fileServiceMock, times(1)).findById(fileId);
-        verifyNoMoreInteractions(fileServiceMock);
     }
 
     /**
@@ -167,43 +156,6 @@ public class FileControllerTest {
 
         Integer fileId = 42;
 
-        // mock service behaviour (-> file not found)
-        when(fileServiceMock.findById(fileId)).thenReturn(null);
-
-        // Perform and test the GET-Request
-        mockMvc.perform(get("/file/get.action").param("id", fileId.toString()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-            .andExpect(jsonPath("$.*", hasSize(2)))
-            .andExpect(jsonPath("$.success", is(false)))
-            .andExpect(jsonPath("$.message", containsString("Could not find the file with id")));
-
-        verify(fileServiceMock, times(1)).findById(fileId);
-        verifyNoMoreInteractions(fileServiceMock);
     }
 
-    /**
-     * @throws Exception
-     */
-    @Test
-    public void getFile_shouldReturnJsonErrorIfExceptionIsThrown()
-        throws Exception {
-
-        Integer fileId = 42;
-
-        // mock service behaviour (exception)
-        String errorMessage = "Some runtime exception";
-        doThrow(new RuntimeException(errorMessage)).when(fileServiceMock).findById(fileId);
-
-        // Perform and test the GET-Request
-        mockMvc.perform(get("/file/get.action").param("id", fileId.toString()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-            .andExpect(jsonPath("$.*", hasSize(2)))
-            .andExpect(jsonPath("$.success", is(false)))
-            .andExpect(jsonPath("$.message", containsString(errorMessage)));
-
-        verify(fileServiceMock, times(1)).findById(fileId);
-        verifyNoMoreInteractions(fileServiceMock);
-    }
 }

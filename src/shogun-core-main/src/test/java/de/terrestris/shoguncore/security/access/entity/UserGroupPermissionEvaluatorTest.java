@@ -33,11 +33,11 @@ public class UserGroupPermissionEvaluatorTest extends
 
         // prepare a user that is member of the group
         final User user = new User("First name", "Last Name", "accountName");
-        IdHelper.setIdOnPersistentObject(user, 42);
+        IdHelper.setIdOnPersistentObject(user, ""+42);
 
         // prepare a secured group
         UserGroup userGroup = new UserGroup();
-        IdHelper.setIdOnPersistentObject(user, 17);
+        IdHelper.setIdOnPersistentObject(user, ""+17);
 
         // add the user to the group
         userGroup.getMembers().add(user);
@@ -55,11 +55,11 @@ public class UserGroupPermissionEvaluatorTest extends
 
         // prepare a user that
         final User user = new User("First name", "Last Name", "accountName");
-        IdHelper.setIdOnPersistentObject(user, 42);
+        IdHelper.setIdOnPersistentObject(user, ""+42);
 
         // prepare a secured group
         UserGroup userGroup = new UserGroup();
-        IdHelper.setIdOnPersistentObject(user, 17);
+        IdHelper.setIdOnPersistentObject(user, ""+17);
 
         // add the user to the group
         userGroup.getMembers().add(user);

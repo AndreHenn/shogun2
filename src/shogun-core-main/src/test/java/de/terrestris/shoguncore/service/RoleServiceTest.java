@@ -1,7 +1,7 @@
 package de.terrestris.shoguncore.service;
 
-import de.terrestris.shogun2.dao.RoleDao;
-import de.terrestris.shogun2.model.Role;
+import de.terrestris.shoguncore.dao.RoleDao;
+import de.terrestris.shoguncore.model.Role;
 
 public class RoleServiceTest extends PermissionAwareCrudServiceTest<Role, RoleDao<Role>, RoleService<Role, RoleDao<Role>>> {
 

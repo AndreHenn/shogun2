@@ -1,11 +1,8 @@
 package de.terrestris.shoguncore.model.layer.source;
 
+import de.terrestris.shoguncore.model.layer.util.TileGrid;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.*;
 
 /**
  * Data source of layers for tile data from WMS servers.
